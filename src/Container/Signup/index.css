@@ -1,0 +1,111 @@
+.parent{
+    height: 100vh;
+    width: 100vw;
+    background-color: #0847a6;
+}
+.heading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    font-weight: bold;
+    color: #fff;
+}
+.heading-wrapper:before{
+    display: inline-block;
+    content: "";
+    height: 48px;
+    flex-shrink: 0;
+}
+.sub-heading{
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 28px;
+    margin-top: 48px;
+    color: #deebff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.form-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.form-parent{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 48px;
+    width: 304px;
+    height: 220px;
+    padding: 48px;
+    background-color:#fff;
+    border-radius: 3px;
+}
+.email, .password, .firstName, .lastName{
+    width: 100%;
+    border: 0;
+    outline: none;
+    background-color: transparent;
+    font-size: 14px;
+}
+.password-wrapper{
+    margin-top: 0px;
+}
+.email-wrapper, .password-wrapper, .firstName-wrapper, .lastName-wrapper{
+    border-color: rgb(223, 225, 230);
+    border-radius: 3px;
+    border-style: solid;
+    line-height: 1.42857;
+    border-width: 2px;
+    padding: 6px;
+    transition: background-color 0.2s ease-in-out 0s, border-color 0.2s ease-in-out 0s;
+}
+
+.email-wrapper:hover, .password-wrapper:hover, .firstName-wrapper:hover, .lastName-wrapper:hover{
+    background-color: rgb(235, 236, 240);
+}
+
+.email:focus + .email-wrapper, .password:focus + .password-wrapper, .firstName:focus + .firstName-wrapper, .lastName:focus + .lastName-wrapper{
+    background-color: #fff;
+}
+
+.button{
+    max-width: 100%;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    width: 100%;
+    color: rgb(255, 255, 255) !important;
+    background: rgb(0, 82, 204);
+    border-radius: 3px;
+    border-width: 0px;
+    height: 39px !important;
+    line-height: 39px !important;
+    transition: opacity 0.2s ease-in-out 0s;
+    outline: none;
+    margin-top: 0px;
+    cursor: pointer;
+}
+
+.button:hover{
+    opacity: 0.8;
+}
+.button:active{
+    opacity: 1;
+}
+.signup-link{
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.42857142857143;
+    display: flex;
+    justify-content: center;
+    margin-top: 45px;
+    color: #fff;
+}
+.signup-link:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
