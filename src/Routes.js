@@ -6,7 +6,7 @@ import Home from './Container/Home';
 import { Provider as AlertProvider } from 'react-alert';
 import AlertTemplate from 'react-alert-template-basic';
 import BusRoute from './Container/BusRoutes';
-import DriverInfo from './Container/DriverInfo';
+import BusInfo from './Container/BusInfo';
 // import { syncHistoryWithStore } from 'react-router-redux'
 import createBrowserHistory from 'history/createBrowserHistory';
 const history = createBrowserHistory();
@@ -59,16 +59,16 @@ const Routes = () => {
                     <BusRoute {...props} />
                 )} />
 
-                <Route path="/driverInfo" render={(props) => (
-                    <DriverInfo {...props} />
+                <Route path="/driverinfo" render={(props) => (
+                    <BusInfo {...props} />
                 )} />
 
                 {/* <Route path="/busRoute" render={(props) => {
                     <BusRoute {...props}/>
                 }} />
 
-                <Route path="/driverInfo" render={(props) => {
-                    <DriverInfo {...props}/>
+                <Route path="/BusInfo" render={(props) => {
+                    <BusInfo {...props}/>
                 }} /> */}
             </Switch>
         </Router>

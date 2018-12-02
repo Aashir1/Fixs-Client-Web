@@ -11,6 +11,7 @@ import withMobileDialog from '@material-ui/core/withMobileDialog';
 import Loader from 'react-loader-spinner';
 import MyMapComponent from '../../Components/Map';
 import { connect } from 'react-redux';
+import ETA from '../../Components/ETA';
 
 
 class ResponsiveDialog extends React.Component {
@@ -38,7 +39,7 @@ class ResponsiveDialog extends React.Component {
         // const HU_38 = "s`swCmjixK@l@H`CLbJZxNp@l\\PpILtEV|A~EnSpCzKjB|H`ApEzB`OpDxVLp@DLMHYVq@h@sG~FyDrD{GjG_DrCuAvAmAvA{BhCaBvB]b@{@p@y@XqB^uBd@oIrBiDfAw@XmAn@cDhB{CnB_GpD{@h@y@x@mA~AeAbB[^uAtAc@j@iAv@sBbAwCtAsFbCiA\\uATq@DaBLcDPkC`@iBj@e@PaBl@}@XaAN}BVeMhAeXtB_Mf@_IR_GNy@DeE?yFGsUQwA@_Gr@kSzCIB{Cb@sL~AmJvAwDd@_DT{@HsHd@_DFqJ^kLn@gZfAmI^yDJ_BHaBNuCb@oAPyANgBJuCLuFRkDM}CQmGNmBJeDh@mDd@}Gl@_MjA@N";
         // const HU_38 = 'ko`xCmr_xKiBMw@CmA@cAD{BFkBLoARsDh@}Eh@qCRmLhAQ@@T';
         // var data = ...oldCoordinates;
-        console.log('encodedPolyline: ', encodedPolyline);
+        // console.log('encodedPolyline: ', encodedPolyline);
         if (encodedPolyline) {
 
             let point = Decoder.decode(encodedPolyline);
@@ -48,9 +49,9 @@ class ResponsiveDialog extends React.Component {
             //         lng: point[1]
             //     }
             // });
-            console.log(point);
+            // console.log(point);
             for (let i = 0; i < point.length; i++) {
-                console.log("point[i][0], ", point[i]);
+                // console.log("point[i][0], ", point[i]);
                 coordinates.push({
                     lat: point[i][0],
                     lng: point[i][1]
@@ -91,8 +92,9 @@ class ResponsiveDialog extends React.Component {
                     onClose={this.props.handleClose}
                     aria-labelledby="responsive-dialog-title"
                 >
-                    <DialogTitle style={{ textAlign: "center" }} id="responsive-dialog-title">{"Map"}</DialogTitle>
+                    {/* <DialogTitle style={{ textAlign: "center" }} id="responsive-dialog-title">{"Map"}</DialogTitle> */}
                     <DialogContent>
+                        <ETA coordinates={this.state.coordinates} />
                         {
                             this.state.mapLoader ?
                                 // false ?

@@ -4,6 +4,16 @@ let initalState = {
     busesRoutes: [],
     busesRoutesProgress: false,
     busesRoutesErrorMessage: "",
+    busesInfo: [],
+    busesInfoProgress: false,
+    busesInfoErrorMessage: "",
+    hasMorePage: true,
+    currentPage: 1,
+    eta: 0,
+    distance: 0,
+    etaProgress: false,
+    etaErrorMessage: "",
+
     navOptions: {
         busRoute: {
             colorIcon: 'colorRoute',
@@ -63,6 +73,25 @@ export default function appReducer(state = initalState, action) {
         case actionsType.GET_BUSROUTES_FAIL:
             return Object.assign({}, state, { busesRoutesProgress: false, busesRoutesErrorMessage: action.payload });
 
+
+        case actionsType.GET_BUSINFO_PROGRESS:
+            return Object.assign({}, state, { busesInfoProgress: true });
+        case actionsType.GET_BUSINFO_SUCCEED:
+            let infoArray = [...state.busesInfo, ...action.payload.info];
+            infoArray = infoArray.length === 1 ? infoArray[0] : infoArray;
+            return Object.assign({}, state, { busesInfoProgress: false, busesInfo: infoArray, currentPage: action.payload.currentPage, hasMorePage: action.payload.hasMorePages });
+        case actionsType.GET_BUSINFO_FAIL:
+            return Object.assign({}, state, { busesInfoProgress: false, busesInfoErrorMessage: action.payload });
+
+
+
+
+        case actionsType.GET_ETAINFO_PROGRESS:
+            return Object.assign({}, state, { etaProgress: true });
+        case actionsType.GET_ETAINFO_SUCCEED:
+            return Object.assign({}, state, { etaProgress: false, distance: action.payload.distance.text, eta: action.payload.duration.text });
+        case actionsType.GET_ETAINFO_FAIL:
+            return Object.assign({}, state, { etaErrorMessage: action.payload, etaProgress: false });
         default:
             return state;
     }

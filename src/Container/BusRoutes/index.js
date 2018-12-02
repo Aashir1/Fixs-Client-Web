@@ -104,7 +104,7 @@ class BusRoute extends Component {
                                                         <img src={require('../../assets/routeImage.jpg')} alt="routeimage" width="100%" height="100%" />
                                                     </div>
                                                     <div className="route-item-child2">
-                                                        <h2 className="bus-name">
+                                                        <h2 className="bus_name">
                                                             {bus.bus_name}
                                                         </h2>
                                                         <div style={{ margin: "0 18px" }}>

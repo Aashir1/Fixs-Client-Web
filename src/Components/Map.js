@@ -21,29 +21,29 @@ let coords = [], oldCoordinates = [];
 
 // saveData(oldCoordinates, fileName);
 
-let getDirection = () => {
-    // const HU_38 = "s`swCmjixK@l@H`CLbJZxNp@l\\PpILtEV|A~EnSpCzKjB|H`ApEzB`OpDxVLp@DLMHYVq@h@sG~FyDrD{GjG_DrCuAvAmAvA{BhCaBvB]b@{@p@y@XqB^uBd@oIrBiDfAw@XmAn@cDhB{CnB_GpD{@h@y@x@mA~AeAbB[^uAtAc@j@iAv@sBbAwCtAsFbCiA\\uATq@DaBLcDPkC`@iBj@e@PaBl@}@XaAN}BVeMhAeXtB_Mf@_IR_GNy@DeE?yFGsUQwA@_Gr@kSzCIB{Cb@sL~AmJvAwDd@_DT{@HsHd@_DFqJ^kLn@gZfAmI^yDJ_BHaBNuCb@oAPyANgBJuCLuFRkDM}CQmGNmBJeDh@mDd@}Gl@_MjA@N";
-    // const HU_38 = 'ko`xCmr_xKiBMw@CmA@cAD{BFkBLoARsDh@}Eh@qCRmLhAQ@@T';
-    oldCoordinates = JSON.parse(localStorage.getItem('coordinates'));
-    // var data = ...oldCoordinates;
+// let getDirection = () => {
+//     // const HU_38 = "s`swCmjixK@l@H`CLbJZxNp@l\\PpILtEV|A~EnSpCzKjB|H`ApEzB`OpDxVLp@DLMHYVq@h@sG~FyDrD{GjG_DrCuAvAmAvA{BhCaBvB]b@{@p@y@XqB^uBd@oIrBiDfAw@XmAn@cDhB{CnB_GpD{@h@y@x@mA~AeAbB[^uAtAc@j@iAv@sBbAwCtAsFbCiA\\uATq@DaBLcDPkC`@iBj@e@PaBl@}@XaAN}BVeMhAeXtB_Mf@_IR_GNy@DeE?yFGsUQwA@_Gr@kSzCIB{Cb@sL~AmJvAwDd@_DT{@HsHd@_DFqJ^kLn@gZfAmI^yDJ_BHaBNuCb@oAPyANgBJuCLuFRkDM}CQmGNmBJeDh@mDd@}Gl@_MjA@N";
+//     // const HU_38 = 'ko`xCmr_xKiBMw@CmA@cAD{BFkBLoARsDh@}Eh@qCRmLhAQ@@T';
+//     oldCoordinates = JSON.parse(localStorage.getItem('coordinates'));
+//     // var data = ...oldCoordinates;
 
-    // let point = Decoder.decode(HU_38);
-    // coords = point.map((point, index) => {
-    //     return {
-    //         lat: point[0],
-    //         lng: point[1]
-    //     }
-    // });
+//     // let point = Decoder.decode(HU_38);
+//     // coords = point.map((point, index) => {
+//     //     return {
+//     //         lat: point[0],
+//     //         lng: point[1]
+//     //     }
+//     // });
 
-    // coords.forEach((data) => {
-    //     oldCoordinates.push(data);
-    // });
-    // oldCoordinates = oldCoordinates.slice(0, 106)
-    console.log('oldCoordinate: ', oldCoordinates);
-    console.log('coords: ', coords.length);
-    // localStorage.setItem('coordinates', JSON.stringify(oldCoordinates));
-}
-getDirection();
+//     // coords.forEach((data) => {
+//     //     oldCoordinates.push(data);
+//     // });
+//     // oldCoordinates = oldCoordinates.slice(0, 106)
+//     console.log('oldCoordinate: ', oldCoordinates);
+//     console.log('coords: ', coords.length);
+//     // localStorage.setItem('coordinates', JSON.stringify(oldCoordinates));
+// }
+// getDirection();
 const MyMapComponent = compose(
     withProps({
         // googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyBbUr9k3JchtdRRTnyrl2opuLJkBd7XT_w",

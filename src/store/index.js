@@ -11,6 +11,7 @@ import AuthEpic from './Epic/AuthEpic';
 import authReducer from './Reducers/AuthReducer';
 import appReducer from './Reducers/AppReducer';
 import BusRouteEpic from './Epic/BusRoute';
+import BusInfo from './Epic/BusInfo';
 // const middleware = routerMiddleware(createBrowserHistory());
 // const history = createBrowserHistory();
 const loggerMiddleware = createLogger();
@@ -25,7 +26,9 @@ const rootReducer = combineReducers({
 export const rootEpic = combineEpics(
     AuthEpic.signUp,
     AuthEpic.login,
-    BusRouteEpic.getBusRoutes
+    BusRouteEpic.getBusRoutes,
+    BusInfo.getBusInfo,
+    BusInfo.getETAInfo
 );
 
 // const epicMiddleware = createEpicMiddleware(rootEpic);
