@@ -27,4 +27,10 @@ export default class AuthActions {
             type: actionTypes.HOME_FLAG
         }
     }
+
+    static makeIserrorFalse() {
+        return {
+            type: actionTypes.MAKE_ISERROR_FALSE
+        }
+    }
 }

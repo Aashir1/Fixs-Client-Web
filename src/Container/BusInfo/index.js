@@ -98,10 +98,22 @@ class Home extends Component {
                             <div className="bus-name" style={{ backgroundColor: colors[i], color: "#fff" }}>{data.bus_name}</div>
                         </div>
                         <div className="info-item-child2">
-                            <div className="info-data">{`Driver Name: ${data.bus_driver_name}`}</div>
-                            <div className="info-data">{`Driver Phone: ${data.bus_driver_phone}`}</div>
-                            <div className="info-data">{`Bus Name: ${data.bus_name}`}</div>
-                            <div className="info-data">{`Stop Info: ${data.stop_info}`}</div>
+                            <div className="info-data">
+                                <span><img src={require(`../../assets/name.png`)} /></span>
+                                {`Driver Name: ${data.bus_driver_name}`}
+                            </div>
+                            <div className="info-data">
+                                <span><img src={require(`../../assets/mobile-phone.png`)} /></span>
+                                {`Driver Phone: ${data.bus_driver_phone}`}
+                            </div>
+                            <div className="info-data">
+                                <span><img src={require(`../../assets/bus.png`)} /></span>
+                                {`Bus Name: ${data.bus_name}`}
+                            </div>
+                            <div className="info-data">
+                                <span><img src={require(`../../assets/bus-stop.png`)} /></span>
+                                {`Stop Info: ${data.stop_info}`}
+                            </div>
                         </div>
                     </div>
                 )
@@ -109,7 +121,7 @@ class Home extends Component {
         }
         return (
             <Navbar history={this.props.history}>
-                <div style={{background: "#7deb9f"}}>
+                <div style={{ background: "#7deb9f" }}>
                     Add Bus Info
                 </div>
                 <h1>Driver Info</h1>
@@ -125,11 +137,13 @@ class Home extends Component {
                             hasMore={this.props.hasMore}
                             loader={<Loader type="Oval" color="#000" height={50} width={50} />}
                         >
-                            <section className="businfo-main">
-                                {
-                                    items
-                                }
-                            </section>
+                            <div style={{ display: "flex", justifyContent: "center", }}>
+                                <section className="businfo-main">
+                                    {
+                                        items
+                                    }
+                                </section>
+                            </div>
                         </InfiniteScroll>
 
 

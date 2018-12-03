@@ -4,7 +4,11 @@ import Button from '../../Components/Button';
 import Input from '../../Components/Input';
 import AuthAction from '../../store/Actions/AuthActions';
 import Loader from 'react-loader-spinner';
+import 'react-s-alert/dist/s-alert-css-effects/bouncyflip.css';
+import 'react-s-alert/dist/s-alert-default.css';
+import Alert from 'react-s-alert';
 import './index.css';
+import { func } from 'prop-types';
 let comRef = {};
 class Login extends Component {
     constructor(props) {
@@ -24,7 +28,10 @@ class Login extends Component {
     // }
     static getDerivedStateFromProps = (nextporps) => {
         console.log('recived new props Login: ', comRef.props, nextporps)
-
+        if (nextporps.isError) {
+            comRef.setState({ showAlert: true, showLoader: false });
+            comRef.props.makeIserrorFalse();
+        }
         if (nextporps.user) {
             nextporps.history.replace('/home');
             //     comRef.props.alert.show('Welcome', {
@@ -69,6 +76,19 @@ class Login extends Component {
     render() {
         return (
             <div className="parent">
+                {
+                    this.state.showAlert ?
+                        Alert.error(this.props.errorMessage || 'Something is wrong', {
+                            position: 'bottom-right',
+                            effect: 'bouncyflip',
+                            html: false,
+                            timeout: 1000,
+                            onClose: function () {
+                                this.props.makeIserrorFalse();
+                            }
+                        }) :
+                        <span></span>
+                }
                 <div className="heading-wrapper">
                     <div className="heading">
                         F<img src={require('../../assets/icon.png')} alt="AppIcon" />XS
@@ -104,13 +124,16 @@ class Login extends Component {
 let mapStateToProps = (state) => {
     console.log('state: ', state)
     return {
-        user: state.authReducer.userInfo
+        user: state.authReducer.userInfo,
+        errorMessage: state.authReducer.errorMsg,
+        isError: state.authReducer.isError
     }
 }
 
 let mapDispatchToProps = (dispatch) => {
     return {
-        login: (obj) => dispatch(AuthAction.login(obj))
+        login: (obj) => dispatch(AuthAction.login(obj)),
+        makeIserrorFalse: () => dispatch(AuthAction.makeIserrorFalse())
     }
 }
 

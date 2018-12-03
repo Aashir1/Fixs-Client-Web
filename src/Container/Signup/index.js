@@ -5,14 +5,19 @@ import Input from '../../Components/Input';
 import AuthAction from '../../store/Actions/AuthActions';
 import { withRouter } from 'react-router-dom';
 import Loader from 'react-loader-spinner';
+// import Input from '@material-ui/core/Input';
+// import InputLabel from '@material-ui/core/InputLabel';
+// import MenuItem from '@material-ui/core/MenuItem';
+// import FormControl from '@material-ui/core/FormControl';
+// import Select from '@material-ui/core/Select';
 import './index.css';
 
 class SignUp extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            firstName: '',
-            lastName: '',
+            name: '',
+            cmsid: '',
             email: '',
             password: '',
             showLoader: false,
@@ -36,18 +41,18 @@ class SignUp extends Component {
 
 
     submitForm = () => {
-        let { firstName, lastName, email, password } = this.state;
+        let { name, cmsid, userType, email, password } = this.state;
         this.setState({ showLoader: true, disableBtn: true }, () => {
             console.log('showLoader: ', this.state.showLoader)
         })
         console.log('outer')
-        if (firstName.trim() !== "" && lastName.trim() !== "" && email.trim() !== "" && password.trim() !== "") {
+        if (name.trim() !== "" && cmsid.trim() !== "" && userType.trim() !== "" && email.trim() !== "" && password.trim() !== "") {
             let obj = {
-                firstName: this.state.firstName,
-                lastName: this.state.lastName,
-                name: this.state.firstName + " " + this.state.lastName,
+                name: this.state.name,
+                cmsId: this.state.cmsid,
+                userType: this.state.userType,
                 email: this.state.email,
-                password: this.state.password
+                pass: this.state.password
             }
             setTimeout(() => {
                 this.props.signUp(obj);
@@ -58,6 +63,10 @@ class SignUp extends Component {
             this.setState({ showLoader: false, disableBtn: false });
         }
     }
+    handleChange = event => {
+        this.setState({ [event.target.name]: event.target.value });
+    };
+
     render() {
         return (
             <div className="parent">
@@ -70,10 +79,7 @@ class SignUp extends Component {
                 <div className="form-wrapper">
                     <div className="form-parent">
                         <div className="firstName-wrapper">
-                            <Input placeholder="First name" className="firstName" type="text" onChange={(e) => this.updateValue(e, "firstName")} value={this.state.firstName} />
-                        </div>
-                        <div className="lastName-wrapper">
-                            <Input placeholder="Last name" className="lastName" type="text" onChange={(e) => this.updateValue(e, "lastName")} value={this.state.lastName} />
+                            <Input placeholder="Enter name" className="firstName" type="text" onChange={(e) => this.updateValue(e, "name")} value={this.state.name} />
                         </div>
                         <div className="email-wrapper">
                             <Input placeholder="Enter email" className="email" type="email" onChange={(e) => this.updateValue(e, "email")} value={this.state.email} />
@@ -81,6 +87,29 @@ class SignUp extends Component {
                         <div className="password-wrapper">
                             <Input placeholder="Enter password" className="password" type="password" onChange={(e) => this.updateValue(e, "password")} value={this.state.password} />
                         </div>
+                        <div className="lastName-wrapper">
+                            <Input placeholder="CMS ID" className="lastName" type="text" onChange={(e) => this.updateValue(e, "cmsid")} value={this.state.lastName} />
+                        </div>
+                        {/* <FormControl >
+                            <InputLabel htmlFor="age-simple">Age</InputLabel>
+                            <Select
+                                value={this.state.userType}
+                                onChange={this.handleChange}
+                                inputProps={{
+                                    name: 'userType',
+                                    id: 'age-simple',
+                                }}
+                            >
+                                <MenuItem value="">
+                                    <em>None</em>
+                                </MenuItem>
+                                <MenuItem value={10}>Student</MenuItem>
+                                <MenuItem value={20}>Staff</MenuItem>
+                            </Select>
+                        </FormControl> */}
+                        {/* <div className="lastName-wrapper">
+                            <Input placeholder="User" className="lastName" type="text" onChange={(e) => this.updateValue(e, "cmsid")} value={this.state.lastName} />
+                        </div> */}
                         <Button disabled={this.state.disableBtn} className="button" onClick={this.submitForm} btnText={
                             this.state.showLoader ?
                                 <div style={{ paddingTop: '4px' }}>

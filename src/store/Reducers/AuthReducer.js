@@ -5,7 +5,8 @@ let initalState = {
     isProgress: false,
     errorMsg: '',
     homeFlag: true,
-    forUpdate: ""
+    forUpdate: "",
+    isError: false
 };
 
 export default function authReducer(state = initalState, action) {
@@ -14,8 +15,8 @@ export default function authReducer(state = initalState, action) {
             return Object.assign({}, state, { isProgress: true });
         case actionsType.LOGIN_SUCCEED:
             return Object.assign({}, state, { isProgress: false, userInfo: action.payload });
-        case actionsType.LOGIN_FIAL:
-            return Object.assign({}, state, { isProgress: false, errorMsg: action.payload });
+        case actionsType.LOGIN_FAIL:
+            return Object.assign({}, state, { isProgress: false, errorMsg: action.payload, isError: true });
 
 
 
@@ -23,8 +24,8 @@ export default function authReducer(state = initalState, action) {
             return Object.assign({}, state, { isProgress: true });
         case actionsType.SIGNUP_SUCCEED:
             return Object.assign({}, state, { isProgress: false, userInfo: action.payload });
-        case actionsType.SIGNUP_FIAL:
-            return Object.assign({}, state, { isProgress: false, errorMsg: action.payload });
+        case actionsType.SIGNOUT_FAIL:
+            return Object.assign({}, state, { isProgress: false, errorMsg: action.payload, isError: true });
 
         //     case actionsType.SIGNUP_PROGRESS:
         //     return Object.assign({}, state, { isProgress: true });
@@ -40,7 +41,10 @@ export default function authReducer(state = initalState, action) {
             return Object.assign({}, state, { userInfo, homeFlag: true, forUpdate: Date.now() });
 
         case actionsType.HOME_FLAG:
-            return Object.assign({}, state, { homeFlag: false })
+            return Object.assign({}, state, { homeFlag: false });
+
+        case actionsType.MAKE_ISERROR_FALSE:
+            return Object.assign({}, state, { isError: false, errorMsg: "" });
 
         default:
             return state;
