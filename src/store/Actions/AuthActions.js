@@ -33,4 +33,11 @@ export default class AuthActions {
             type: actionTypes.MAKE_ISERROR_FALSE
         }
     }
+
+    static changePassword(obj) {
+        return {
+            type: actionTypes.CHANGE_PASSWORD_PROGRESS,
+            payload: obj
+        }
+    }
 }

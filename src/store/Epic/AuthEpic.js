@@ -48,6 +48,25 @@ export default class AuthEpic {
         })
     }
 
+    static changePassword($action) {
+        return $action.ofType(actionsType.CHANGE_PASSWORD_PROGRESS).switchMap(({ payload }) => {
+            return HttpService.post('http://localhost:8080/changepassword', payload)
+                .pluck('response')
+                .map(data => {
+                    console.log("change password: ", data);
+                    return {
+                        type: actionsType.CHANGE_PASSWORD_SUCCEED,
+                        payload: data
+                    }
+                })
+                .catch(error => {
+                    return Observable.of({
+                        type: actionsType.CHANGE_PASSWORD_FAIL,
+                        payload: error.message
+                    })
+                })
+        })
+    }
     // static signOut($action) {
     //     return $action.ofType(actionsType.SIGNOUT_PROGRESS).switchMap(({ payload }) => {
     //         return HttpService.post('http://192.168.43.11:8080/signout')

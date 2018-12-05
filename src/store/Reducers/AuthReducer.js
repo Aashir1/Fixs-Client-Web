@@ -19,6 +19,14 @@ export default function authReducer(state = initalState, action) {
             return Object.assign({}, state, { isProgress: false, errorMsg: action.payload, isError: true });
 
 
+        case actionsType.CHANGE_PASSWORD_PROGRESS:
+            return Object.assign({}, state, { isProgress: true });
+        case actionsType.CHANGE_PASSWORD_SUCCEED:
+            return Object.assign({}, state, { isProgress: false, userInfo: action.payload });
+        case actionsType.CHANGE_PASSWORD_FAIL:
+            return Object.assign({}, state, { isProgress: false, errorMsg: action.payload, isError: true });
+
+
 
         case actionsType.SIGNUP_PROGRESS:
             return Object.assign({}, state, { isProgress: true });

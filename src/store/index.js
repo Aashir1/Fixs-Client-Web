@@ -26,6 +26,7 @@ const rootReducer = combineReducers({
 export const rootEpic = combineEpics(
     AuthEpic.signUp,
     AuthEpic.login,
+    AuthEpic.changePassword,
     BusRouteEpic.getBusRoutes,
     BusInfo.getBusInfo,
     BusInfo.getETAInfo
