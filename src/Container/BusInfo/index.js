@@ -10,6 +10,8 @@ import AppActions from '../../store/Actions/AppActions';
 import { database } from 'firebase';
 import '../../assets/Hover-master/css/hover-min.css';
 import InfiniteScroll from 'react-infinite-scroller';
+import BusInfoModel from '../../Components/BusInfoModel';
+import BusInfoUpdateModel from '../../Components/BusInfoUpdateModel';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import './businfo.css';
@@ -25,7 +27,9 @@ class Home extends Component {
             accuracy: 0,
             mapLoader: true,
             busInfoPage: 1,
-            isCallPage: true
+            isCallPage: true,
+            openModel: false,
+            openUpdateModel: false
         }
         Ref = this;
     }
@@ -87,6 +91,19 @@ class Home extends Component {
     }
 
 
+    handleClose = () => {
+        this.setState({ openModel: !this.state.openModel });
+    }
+
+    handleUpdateClose = () => {
+        this.setState({ openUpdateModel: !this.state.openUpdateModel });
+    }
+    openUpdateModel = (obj) => {
+        this.props.infoUpdateObj(obj);
+        this.setState({ openUpdateModel: true });
+    }
+
+
     render() {
         let items = [];
         if (!this.props.busesInfoProgress) {
@@ -97,22 +114,42 @@ class Home extends Component {
                         <div className="info-item-child1">
                             <div className="bus-name" style={{ backgroundColor: colors[i], color: "#fff" }}>{data.bus_name}</div>
                         </div>
-                        <div className="info-item-child2">
-                            <div className="info-data">
-                                <span><img src={require(`../../assets/name.png`)} /></span>
-                                {`Driver Name: ${data.bus_driver_name}`}
+                        <div className="info-item-child2" style={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                        }}>
+                            <div>
+                                <div className="info-data">
+                                    <span><img src={require(`../../assets/name.png`)} /></span>
+                                    {`Driver Name: ${data.bus_driver_name}`}
+                                </div>
+                                <div className="info-data">
+                                    <span><img src={require(`../../assets/mobile-phone.png`)} /></span>
+                                    {`Driver Phone: ${data.bus_driver_phone}`}
+                                </div>
+                                <div className="info-data">
+                                    <span><img src={require(`../../assets/bus.png`)} /></span>
+                                    {`Bus Name: ${data.bus_name}`}
+                                </div>
+                                <div className="info-data">
+                                    <span><img src={require(`../../assets/bus-stop.png`)} /></span>
+                                    {`Stop Info: ${data.stop_info}`}
+                                </div>
                             </div>
-                            <div className="info-data">
-                                <span><img src={require(`../../assets/mobile-phone.png`)} /></span>
-                                {`Driver Phone: ${data.bus_driver_phone}`}
-                            </div>
-                            <div className="info-data">
-                                <span><img src={require(`../../assets/bus.png`)} /></span>
-                                {`Bus Name: ${data.bus_name}`}
-                            </div>
-                            <div className="info-data">
-                                <span><img src={require(`../../assets/bus-stop.png`)} /></span>
-                                {`Stop Info: ${data.stop_info}`}
+                            <div style={{
+                                height: '100%',
+                                width: '30%',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'space-around',
+                            }}>
+                                <div style={{ textAlign: 'center', marginBottom: '50px' }} >
+                                    <img src={require(`../../assets/editicon.png`)} onClick={() => this.openUpdateModel({ editFlag: true, data })} />
+                                </div>
+                                <div style={{ textAlign: 'center' }}>
+                                    <img src={require(`../../assets/deleteicon.png`)} onClick={() => this.props.deleteInfo(data._id)} />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -121,8 +158,12 @@ class Home extends Component {
         }
         return (
             <Navbar history={this.props.history}>
-                <div style={{ background: "#7deb9f" }}>
-                    Add Bus Info
+                <BusInfoModel open={this.state.openModel} handleClose={this.handleClose} />
+                <BusInfoUpdateModel open={this.state.openUpdateModel} handleClose={this.handleUpdateClose} />
+                <div className="add-btn" >
+                    <div className="add-btn-child" onClick={this.handleClose}>
+                        Add Bus Info
+                    </div>
                 </div>
                 <h1>Driver Info</h1>
                 <Button btnText="Signout" onClick={this.signOut} />
@@ -178,7 +219,9 @@ let mapDispatchToProps = (dispatch) => {
     return {
         signOut: () => dispatch(AuthAction.signOut()),
         updateHomeFlag: () => dispatch(AuthAction.updateHomeFlag()),
-        getBusInfo: (page) => dispatch(AppActions.getBusInfo(page))
+        getBusInfo: (page) => dispatch(AppActions.getBusInfo(page)),
+        infoUpdateObj: (obj) => dispatch(AppActions.infoUpdateObj(obj)),
+        deleteInfo: (id) => dispatch(AppActions.deleteInfo(id))
     }
 }
 

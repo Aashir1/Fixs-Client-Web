@@ -7,6 +7,7 @@ import { Provider as AlertProvider } from 'react-alert';
 import AlertTemplate from 'react-alert-template-basic';
 import BusRoute from './Container/BusRoutes';
 import BusInfo from './Container/BusInfo';
+import Main from './Components/Main';
 // import { syncHistoryWithStore } from 'react-router-redux'
 import createBrowserHistory from 'history/createBrowserHistory';
 const history = createBrowserHistory();
@@ -23,7 +24,8 @@ const Routes = () => {
     return (
         <Router history={history}>
             <Switch>
-                <Route exact path="/" render={(props) => {
+                <Route exact path="/" component={Main} />
+                <Route path="/login" render={(props) => {
                     const user = JSON.parse(localStorage.getItem('user'))
                     return (
                         user ? (

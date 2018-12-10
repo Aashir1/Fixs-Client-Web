@@ -76,8 +76,23 @@ class SignUp extends Component {
                     </div>
                     <div className="sub-heading">Register an account</div>
                 </div>
-                <div className="form-wrapper">
-                    <div className="form-parent">
+                <div className="form-wrapper" style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                }}>
+                    <div style={{
+                        marginTop: '48px',
+                        width: '304px',
+                        height: '209px',
+                        padding: '48px',
+                        backgroundColor: '#fff',
+                        borderRadius: '3px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-around',
+                        // alignItems: 'center'
+                    }}>
                         <div className="firstName-wrapper">
                             <Input placeholder="Enter name" className="firstName" type="text" onChange={(e) => this.updateValue(e, "name")} value={this.state.name} />
                         </div>
@@ -121,7 +136,7 @@ class SignUp extends Component {
                     </div>
                 </div>
                 <div className="signup-link">
-                    <div onClick={() => this.props.history.push('/')}>Already have an account log in</div>
+                    <div onClick={() => this.props.history.push('/login')}>Already have an account log in</div>
                 </div>
             </div>
             // <div>

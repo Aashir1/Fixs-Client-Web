@@ -4,7 +4,7 @@ let initalState = {
     userInfo: null,
     isProgress: false,
     errorMsg: '',
-    homeFlag: true,
+    homeFlag: false,
     forUpdate: "",
     isError: false
 };

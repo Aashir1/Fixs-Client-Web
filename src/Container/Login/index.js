@@ -91,18 +91,26 @@ class Login extends Component {
                 })
             }
         } else {
-            if (email.trim() !== "" && password.trim() !== "") {
-                let obj = {
-                    email: this.state.email,
-                    pass: this.state.password
+            if (this.props.adminFlag) {//if admin login
+                if (email === "admin@mail.com" && password === "admin123") {
+                    setTimeout(() => {
+                        this.props.history.replace('/home');
+                    }, 2000);
                 }
-                setTimeout(() => {
-                    this.props.login(obj);
-                }, 2000)
-            }
-            else {
-                alert('Data badly formated');
-                this.setState({ showLoader: false });
+            } else {
+                if (email.trim() !== "" && password.trim() !== "") {
+                    let obj = {
+                        email: this.state.email,
+                        pass: this.state.password
+                    }
+                    setTimeout(() => {
+                        this.props.login(obj);
+                    }, 2000)
+                }
+                else {
+                    alert('Data badly formated');
+                    this.setState({ showLoader: false });
+                }
             }
         }
     }
@@ -148,12 +156,36 @@ class Login extends Component {
                     <div className="heading">
                         F<img src={require('../../assets/icon.png')} alt="AppIcon" />XS
                     </div>
-                    <div className="sub-heading">Login to continue</div>
+                    <div className="sub-heading">
+                        {
+                            this.props.adminFlag ?
+                                <span>Admin Login</span>
+                                :
+                                <span>
+                                    Login to continue
+                                </span>
+                        }
+                    </div>
                 </div>
                 {
                     this.state.showForgetPasswordForm ?
-                        <div className="form-wrapper">
-                            <div className="form-parent">
+                        <div className="form-wrapper" style={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}>
+                            <div style={{
+                                marginTop: '48px',
+                                width: '304px',
+                                height: '209px',
+                                padding: '48px',
+                                backgroundColor: '#fff',
+                                borderRadius: '3px',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'space-around',
+                                // alignItems: 'center'
+                            }}>
                                 <div className="email-wrapper">
                                     <Input placeholder="Enter email" className="email" type="email" onChange={(e) => this.updateValue(e, "email")} value={this.state.email} />
                                 </div>
@@ -174,8 +206,23 @@ class Login extends Component {
                             </div>
                         </div>
                         :
-                        <div className="form-wrapper">
-                            <div className="form-parent">
+                        <div className="form-wrapper" style={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}>
+                            <div style={{
+                                marginTop: '48px',
+                                width: '304px',
+                                height: '209px',
+                                padding: '48px',
+                                backgroundColor: '#fff',
+                                borderRadius: '3px',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'space-around',
+                                // alignItems: 'center'
+                            }}>
                                 <div className="email-wrapper">
                                     <Input placeholder="Enter email" className="email" type="email" onChange={(e) => this.updateValue(e, "email")} value={this.state.email} />
                                 </div>
@@ -225,7 +272,8 @@ let mapStateToProps = (state) => {
     return {
         user: state.authReducer.userInfo,
         errorMessage: state.authReducer.errorMsg,
-        isError: state.authReducer.isError
+        isError: state.authReducer.isError,
+        adminFlag: state.appReducer.adminFlag
     }
 }
 

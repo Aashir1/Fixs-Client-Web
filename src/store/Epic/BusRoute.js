@@ -27,4 +27,64 @@ export default class BusRouteEpic {
         })
     }
 
+    static addRoute($action) {
+        return $action.ofType(actionsType.ADD_ROUTE_PROGRESS).switchMap(({ payload }) => {
+            return HttpService.post('http://localhost:8080/busroute/add', payload, header)
+                .pluck('response')
+                .map((data) => {
+                    console.log("added bus route: ", data);
+                    return {
+                        type: actionsType.ADD_ROUTE_SUCCEED,
+                        payload: data
+                    }
+                })
+                .catch(error => {
+                    return Observable.of({
+                        type: actionsType.ADD_ROUTE_FAIL,
+                        payload: error.message
+                    })
+                })
+        })
+    }
+
+    static updateRoute($action) {
+        return $action.ofType(actionsType.UPDATE_ROUTE_PROGRESS).switchMap(({ payload }) => {
+            return HttpService.post(`http://localhost:8080/busroute/update`, payload, header)
+                .pluck('response')
+                .map(data => {
+                    console.log("data: ", data);
+                    return {
+                        type: actionsType.UPDATE_ROUTE_SUCCEED,
+                        payload: data
+                    }
+                })
+                .catch(error => {
+                    return Observable.of({
+                        type: actionsType.UPDATE_ROUTE_FAIL,
+                        payload: error.message
+                    })
+                })
+        })
+    }
+
+    static deleteRoute($action) {
+        return $action.ofType(actionsType.DELETE_ROUTE_PROGRESS).switchMap(({ payload }) => {
+            return HttpService.post(`http://localhost:8080/busroute/delete/${payload}`, {}, header)
+                .pluck('response')
+                .map(data => {
+                    console.log("data: ", data);
+                    return {
+                        type: actionsType.DELETE_ROUTE_SUCCEED,
+                        payload: data
+                    }
+                })
+                .catch(error => {
+                    return Observable.of({
+                        type: actionsType.DELETE_ROUTE_FAIL,
+                        payload: error.message
+                    })
+                })
+        })
+    }
+
 }

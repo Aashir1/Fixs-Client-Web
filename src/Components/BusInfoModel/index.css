@@ -1,0 +1,72 @@
+.form-parent{
+    margin-top: 48px;
+    width: 304px;
+    height: 21rem !important;
+    padding: 0px !important;
+    background-color:#fff;
+    border-radius: 3px;
+}
+.email, .password{
+    width: 100%;
+    border: 0;
+    outline: none;
+    background-color: transparent;
+    font-size: 14px;
+}
+.password-wrapper{
+    /* margin-top: 45px; */
+}
+.email-wrapper, .password-wrapper{
+    border-color: rgb(223, 225, 230);
+    border-radius: 3px;
+    border-style: solid;
+    line-height: 1.42857;
+    border-width: 2px;
+    padding: 6px;
+    transition: background-color 0.2s ease-in-out 0s, border-color 0.2s ease-in-out 0s;
+}
+
+.email-wrapper:hover, .password-wrapper:hover{
+    background-color: rgb(235, 236, 240);
+}
+
+.email:focus + .email-wrapper{
+    background-color: #fff;
+}
+
+.model-title{
+    background-color: #0B2239;
+    height: 60px;
+    line-height: 60px;
+    color: #fff;
+    padding-left: 20px;
+    display: flex;
+    justify-content: space-between !important;
+    align-items: center;
+}
+
+.cross-image{
+    margin-right: 20px;
+    width: 19px;
+    cursor: pointer;
+}
+
+.add-route{
+    max-width: 100%;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    width: 100%;
+    color: #0B2239 !important;
+    background: #49d295;
+    border-radius: 3px;
+    border-width: 0px;
+    height: 39px !important;
+    line-height: 39px !important;
+    -webkit-transition: opacity 0.2s ease-in-out 0s;
+    transition: opacity 0.2s ease-in-out 0s;
+    outline: none;
+    margin-top: 0px;
+    cursor: pointer;
+    font-weight: 17px;
+}

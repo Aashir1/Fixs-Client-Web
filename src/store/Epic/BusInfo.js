@@ -46,4 +46,64 @@ export default class BusInfo {
                     })
             })
     }
+
+    static updateBusInfo($action) {
+        return $action.ofType(actionsType.UPDATE_BUS_INFO_PROGRESS).switchMap(({ payload }) => {
+            return HttpService.post(`http://localhost:8080/businfo/update`, payload, header)
+                .pluck('response')
+                .map(data => {
+                    console.log("data: ", data);
+                    return {
+                        type: actionsType.UPDATE_BUS_INFO_SUCCEED,
+                        payload: data
+                    }
+                })
+                .catch(error => {
+                    return Observable.of({
+                        type: actionsType.UPDATE_BUS_INFO_FAIL,
+                        payload: error.message
+                    })
+                })
+        })
+    }
+
+    static addBusInfo($action) {
+        return $action.ofType(actionsType.ADD_BUSINFO_PROGRESS).switchMap(({ payload }) => {
+            return HttpService.post('http://localhost:8080/businfo/add', payload, header)
+                .pluck('response')
+                .map((data) => {
+                    console.log("added bus info: ", data);
+                    return {
+                        type: actionsType.ADD_BUSINFO_SUCCEED,
+                        payload: data
+                    }
+                })
+                .catch(error => {
+                    return Observable.of({
+                        type: actionsType.ADD_BUSINFO_FAIL,
+                        payload: error.message
+                    })
+                })
+        })
+    }
+
+    static deleteInfo($action) {
+        return $action.ofType(actionsType.DELETE_INFO_PROGRESS).switchMap(({ payload }) => {
+            return HttpService.post(`http://localhost:8080/businfo/delete/${payload}`, {}, header)
+                .pluck('response')
+                .map(data => {
+                    console.log("data: ", data);
+                    return {
+                        type: actionsType.DELETE_INFO_SUCCEED,
+                        payload: data
+                    }
+                })
+                .catch(error => {
+                    return Observable.of({
+                        type: actionsType.DELETE_INFO_FAIL,
+                        payload: error.message
+                    })
+                })
+        })
+    }
 }

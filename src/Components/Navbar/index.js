@@ -75,7 +75,7 @@ class Navbar extends Component {
                             <img src={require('../../assets/largicon.png')} className="heading-icon" />
                             <div className="logo">
                                 F<img src={require('../../assets/icon.png')} className="logo-heading-icon" />XS
-                        </div>
+                            </div>
                         </section>
 
                         <section className="nav-options">
