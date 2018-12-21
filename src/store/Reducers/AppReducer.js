@@ -5,6 +5,7 @@ let initalState = {
     busesRoutesProgress: false,
     busesRoutesErrorMessage: "",
     busesInfo: [],
+    allBuses: [],
     busesInfoProgress: false,
     busesInfoErrorMessage: "",
     hasMorePage: true,
@@ -13,7 +14,7 @@ let initalState = {
     distance: 0,
     etaProgress: false,
     etaErrorMessage: "",
-    adminFlag: true,
+    adminFlag: false,
     editObj: {
         editFlag: false,
         bus: {}
@@ -22,6 +23,7 @@ let initalState = {
         editFlag: false,
         data: {}
     },
+    trackingBusInfo: [],
     navOptions: {
         busRoute: {
             colorIcon: 'colorRoute',
@@ -53,6 +55,18 @@ let initalState = {
             name: "Bus Tracking",
             isFocus: false
         },
+        report: {
+            colorIcon: 'colorReport',
+            icon: 'report',
+            name: "Report",
+            isFocus: false
+        },
+        time: {
+            colorIcon: 'colorTime',
+            icon: 'time',
+            name: "ETA",
+            isFocus: false
+        }
     }
 }
 
@@ -60,6 +74,78 @@ export default function appReducer(state = initalState, action) {
     switch (action.type) {
         case actionsType.UPDATE_NAVBAR: {
             let name = action.payload.name;
+
+            if (name === 'signOut') {
+                localStorage.setItem('user', null);
+                action.payload.history.replace('/');
+                return Object.assign({}, state, {
+                    busesRoutes: [],
+                    busesRoutesProgress: false,
+                    busesRoutesErrorMessage: "",
+                    busesInfo: [],
+                    busesInfoProgress: false,
+                    busesInfoErrorMessage: "",
+                    hasMorePage: true,
+                    currentPage: 1,
+                    eta: 0,
+                    distance: 0,
+                    etaProgress: false,
+                    etaErrorMessage: "",
+                    adminFlag: false,
+                    editObj: {
+                        editFlag: false,
+                        bus: {}
+                    },
+                    infoUpdateObj: {
+                        editFlag: false,
+                        data: {}
+                    },
+                    navOptions: {
+                        busRoute: {
+                            colorIcon: 'colorRoute',
+                            icon: 'route',
+                            name: "Bus Route",
+                            isFocus: false
+                        },
+                        driverInfo: {
+                            colorIcon: 'colorInfo',
+                            icon: 'info',
+                            name: "Bus Info",
+                            isFocus: false
+                        },
+                        signOut: {
+                            colorIcon: 'colorSignout',
+                            icon: 'signout',
+                            name: "Logout",
+                            isFocus: false
+                        },
+                        student: {
+                            colorIcon: 'colorStudent',
+                            icon: 'student',
+                            name: "Students",
+                            isFocus: false
+                        },
+                        tracking: {
+                            colorIcon: 'colorTracking',
+                            icon: 'tracking',
+                            name: "Bus Tracking",
+                            isFocus: false
+                        },
+                        report: {
+                            colorIcon: 'colorReport',
+                            icon: 'report',
+                            name: "Report",
+                            isFocus: false
+                        },
+                        time: {
+                            colorIcon: 'colorTime',
+                            icon: 'time',
+                            name: "ETA",
+                            isFocus: false
+                        }
+                    }
+                })
+            }
             console.log('name: ', name)
             let { navOptions } = state;
             navOptions[name].isFocus = true;
@@ -76,6 +162,16 @@ export default function appReducer(state = initalState, action) {
 
 
 
+        case actionsType.GET_ALL_BUSES_PROGRESS:
+            return Object.assign({}, state, { busesInfoProgress: true });
+        case actionsType.GET_ALL_BUSES_SUCCEED:
+            // let allBuses = [...action.payload.info];
+            console.log('allBuses: ', action.payload.info);
+            // infoArray = infoArray.length === 1 ? infoArray[0] : infoArray;
+            // return Object.assign({}, state, { busesInfoProgress: false, trackingBusInfo: infoArray});
+            return Object.assign({}, state, { busesInfoProgress: false, allBuses: action.payload.info });
+        case actionsType.GET_BUSINFO_FAIL:
+            return Object.assign({}, state, { busesInfoProgress: false, busesInfoErrorMessage: action.payload });
 
 
 
@@ -164,9 +260,9 @@ export default function appReducer(state = initalState, action) {
         case actionsType.GET_BUSROUTE_PROGRESS:
             return Object.assign({}, state, { busesRoutesProgress: true });
         case actionsType.GET_BUSROUTE_SUCCEED:
-            return Object.assign({}, state, { busesInfo: action.payload, busesInfoProgress: false });
+            return Object.assign({}, state, { busesRoutes: action.payload, busesRoutesProgress: false });
         case actionsType.GET_BUSROUTES_FAIL:
-            return Object.assign({}, state, { busesInfoProgress: false, busesInfoErrorMessage: action.payload });
+            return Object.assign({}, state, { busesRoutesProgress: false, busesInfoErrorMessage: action.payload });
 
 
 

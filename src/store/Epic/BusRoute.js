@@ -2,12 +2,14 @@ import actionsType from '../actionTypes';
 import HttpService from '../service/httpService';
 import { Observable } from 'rxjs';
 let header = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGVzdDEyMzQiLCJlbWFpbCI6InRlc3QxMjM0QG1haWwuY29tIiwiaWF0IjoxNTQzMDgyOTYxfQ.R9Y0r_Zx_gY4E2nolwQzwR-AqokFZwxAHduy9ordxfg';
+const baseURL = 'https://warm-thicket-69046.herokuapp.com';
+
 export default class BusRouteEpic {
 
     static getBusRoutes($action) {
         console.log('epic is running');
         return $action.ofType(actionsType.GET_BUSROUTE_PROGRESS).switchMap(({ }) => {
-            return HttpService.get(`http://localhost:8080/busesroutes`, header)
+            return HttpService.get(`${baseURL}/busesroutes`, header)
                 .pluck('response')
                 .map(data => {
                     // localStorage.setItem('user', JSON.stringify(data));
@@ -29,7 +31,7 @@ export default class BusRouteEpic {
 
     static addRoute($action) {
         return $action.ofType(actionsType.ADD_ROUTE_PROGRESS).switchMap(({ payload }) => {
-            return HttpService.post('http://localhost:8080/busroute/add', payload, header)
+            return HttpService.post(`${baseURL}/busroute/add`, payload, header)
                 .pluck('response')
                 .map((data) => {
                     console.log("added bus route: ", data);
@@ -49,7 +51,7 @@ export default class BusRouteEpic {
 
     static updateRoute($action) {
         return $action.ofType(actionsType.UPDATE_ROUTE_PROGRESS).switchMap(({ payload }) => {
-            return HttpService.post(`http://localhost:8080/busroute/update`, payload, header)
+            return HttpService.post(`${baseURL}/busroute/update`, payload, header)
                 .pluck('response')
                 .map(data => {
                     console.log("data: ", data);
@@ -69,7 +71,7 @@ export default class BusRouteEpic {
 
     static deleteRoute($action) {
         return $action.ofType(actionsType.DELETE_ROUTE_PROGRESS).switchMap(({ payload }) => {
-            return HttpService.post(`http://localhost:8080/busroute/delete/${payload}`, {}, header)
+            return HttpService.post(`${baseURL}/busroute/delete/${payload}`, {}, header)
                 .pluck('response')
                 .map(data => {
                     console.log("data: ", data);

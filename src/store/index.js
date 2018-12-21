@@ -34,6 +34,7 @@ export const rootEpic = combineEpics(
     BusRouteEpic.deleteRoute,
     BusRouteEpic.updateRoute,
     BusInfo.getBusInfo,
+    BusInfo.getAllBuses,
     BusInfo.getETAInfo,
     BusInfo.addBusInfo,
     BusInfo.updateBusInfo,

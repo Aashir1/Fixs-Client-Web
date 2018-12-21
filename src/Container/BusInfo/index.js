@@ -114,44 +114,68 @@ class Home extends Component {
                         <div className="info-item-child1">
                             <div className="bus-name" style={{ backgroundColor: colors[i], color: "#fff" }}>{data.bus_name}</div>
                         </div>
-                        <div className="info-item-child2" style={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                        }}>
-                            <div>
-                                <div className="info-data">
-                                    <span><img src={require(`../../assets/name.png`)} /></span>
-                                    {`Driver Name: ${data.bus_driver_name}`}
+                        {
+                            this.props.adminFlag ?
+                                <div className="info-item-child2" style={{
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                    alignItems: 'center',
+                                }}>
+                                    <div>
+                                        <div className="info-data">
+                                            <span><img src={require(`../../assets/name.png`)} /></span>
+                                            {`Driver Name: ${data.bus_driver_name}`}
+                                        </div>
+                                        <div className="info-data">
+                                            <span><img src={require(`../../assets/mobile-phone.png`)} /></span>
+                                            {`Driver Phone: ${data.bus_driver_phone}`}
+                                        </div>
+                                        <div className="info-data">
+                                            <span><img src={require(`../../assets/bus.png`)} /></span>
+                                            {`Bus Name: ${data.bus_name}`}
+                                        </div>
+                                        <div className="info-data">
+                                            <span><img src={require(`../../assets/bus-stop.png`)} /></span>
+                                            {`Stop Info: ${data.stop_info}`}
+                                        </div>
+                                    </div>
+                                    <div style={{
+                                        height: '100%',
+                                        width: '30%',
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        justifyContent: 'space-around',
+                                    }}>
+                                        <div style={{ textAlign: 'center', marginBottom: '50px' }} >
+                                            <img src={require(`../../assets/editicon.png`)} onClick={() => this.openUpdateModel({ editFlag: true, data })} />
+                                        </div>
+                                        <div style={{ textAlign: 'center' }}>
+                                            <img src={require(`../../assets/deleteicon.png`)} onClick={() => this.props.deleteInfo(data._id)} />
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className="info-data">
-                                    <span><img src={require(`../../assets/mobile-phone.png`)} /></span>
-                                    {`Driver Phone: ${data.bus_driver_phone}`}
+                                :
+                                <div className="info-item-child2">
+                                    <div>
+                                        <div className="info-data">
+                                            <span><img src={require(`../../assets/name.png`)} /></span>
+                                            {`Driver Name: ${data.bus_driver_name}`}
+                                        </div>
+                                        <div className="info-data">
+                                            <span><img src={require(`../../assets/mobile-phone.png`)} /></span>
+                                            {`Driver Phone: ${data.bus_driver_phone}`}
+                                        </div>
+                                        <div className="info-data">
+                                            <span><img src={require(`../../assets/bus.png`)} /></span>
+                                            {`Bus Name: ${data.bus_name}`}
+                                        </div>
+                                        <div className="info-data">
+                                            <span><img src={require(`../../assets/bus-stop.png`)} /></span>
+                                            {`Stop Info: ${data.stop_info}`}
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className="info-data">
-                                    <span><img src={require(`../../assets/bus.png`)} /></span>
-                                    {`Bus Name: ${data.bus_name}`}
-                                </div>
-                                <div className="info-data">
-                                    <span><img src={require(`../../assets/bus-stop.png`)} /></span>
-                                    {`Stop Info: ${data.stop_info}`}
-                                </div>
-                            </div>
-                            <div style={{
-                                height: '100%',
-                                width: '30%',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                justifyContent: 'space-around',
-                            }}>
-                                <div style={{ textAlign: 'center', marginBottom: '50px' }} >
-                                    <img src={require(`../../assets/editicon.png`)} onClick={() => this.openUpdateModel({ editFlag: true, data })} />
-                                </div>
-                                <div style={{ textAlign: 'center' }}>
-                                    <img src={require(`../../assets/deleteicon.png`)} onClick={() => this.props.deleteInfo(data._id)} />
-                                </div>
-                            </div>
-                        </div>
+                        }
                     </div>
                 )
             })
@@ -165,11 +189,17 @@ class Home extends Component {
                         Add Bus Info
                     </div>
                 </div>
-                <h1>Driver Info</h1>
-                <Button btnText="Signout" onClick={this.signOut} />
+                <h1 style={{
+                    color: 'rgb(47, 53, 66)',
+                    textAlign: 'center',
+                    fontWeight: '600'
+                }}>Driver Info</h1>
+                {/* <Button btnText="Signout" onClick={this.signOut} /> */}
                 {
                     this.props.busesInfoProgress ? (
-                        <Loader type="Oval" color="#000" height={50} width={50} />
+                        <div style={{ height: '65vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                            <Loader type="Oval" color="#000" height={50} width={50} />
+                        </div>
                     )
                         :
                         <InfiniteScroll
@@ -211,7 +241,8 @@ let mapStateToProps = (state) => {
         currentPage: state.appReducer.currentPage,
         busesInfo: state.appReducer.busesInfo,
         busesInfoProgress: state.appReducer.busesInfoProgress,
-        hasMorePage: state.appReducer.hasMorePage
+        hasMorePage: state.appReducer.hasMorePage,
+        adminFlag: state.appReducer.adminFlag
     }
 }
 

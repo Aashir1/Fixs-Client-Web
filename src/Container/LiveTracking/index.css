@@ -1,0 +1,16 @@
+.buses-wrapper{
+    display: grid;
+    grid-template-columns: 15em 15em 15em;
+    grid-auto-rows: minmax(12em, auto);
+    grid-row-gap: 3em;
+    grid-column-gap: 3em;
+    -webkit-transition: all 0.2s;
+    transition: all 0.2s;
+}
+
+.back-arrow:hover{
+    transform: scale(1.2, 1.2);
+}
+.back-arrow{
+    transition: transform 0.3s;
+}

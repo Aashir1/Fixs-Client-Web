@@ -3,13 +3,58 @@ import './index.css';
 import Button from '../Button';
 import { connect } from 'react-redux';
 import AppActions from '../../store/Actions/AppActions';
-
+const publicVapidKey =
+    "BJthRQ5myDgc7OSXzPCMftGw-n16F7zQBEN7EUD6XxcfTTvrLGWSIG7y_JxiWtVlCFua0S8MTB5rPziBqNx1qIo";
 class Main extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
 
         }
+        this.send = this.send.bind(this);
+    }
+    async send() {
+        // alert("sending is starting");
+        // Register Service Worker
+        // console.log("Registering service worker...");
+        const register = await navigator.serviceWorker.register("../../pushWorker.js", {
+            scope: "/"
+        });
+        // console.log("Service Worker Registered...");
+
+        // Register Push
+        // console.log("Registering Push...");
+        const subscription = await register.pushManager.subscribe({
+            userVisibleOnly: true,
+            applicationServerKey: this.urlBase64ToUint8Array(publicVapidKey)
+        });
+        // console.log("Push Registered...");
+
+        // Send Push Notification
+        console.log("Sending Push...");
+        await fetch("http://localhost:5000/subscribe", {
+            method: "POST",
+            body: JSON.stringify(subscription),
+            headers: {
+                "content-type": "application/json"
+            }
+        });
+        console.log("Push Sent...");
+    }
+
+    urlBase64ToUint8Array = (base64String) => {
+        const padding = "=".repeat((4 - base64String.length % 4) % 4);
+        const base64 = (base64String + padding)
+            .replace(/\-/g, "+")
+            .replace(/_/g, "/");
+
+        const rawData = window.atob(base64);
+        const outputArray = new Uint8Array(rawData.length);
+
+        for (let i = 0; i < rawData.length; ++i) {
+            outputArray[i] = rawData.charCodeAt(i);
+        }
+        return outputArray;
     }
 
     navigate = (value) => {
@@ -27,6 +72,9 @@ class Main extends React.Component {
                 flexDirection: 'column',
                 backgroundColor: '#0b2239'
             }}>
+                <button onClick={this.send}>
+                    show Notification
+            </button>
                 <section>
                     <div style={{
                         color: "#4286f4",

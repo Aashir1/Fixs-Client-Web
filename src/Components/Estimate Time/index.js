@@ -8,9 +8,14 @@ import Model from '../../Components/Model';
 import BusRouteActions from '../../store/Actions/BusRoutesActions';
 import Navbar from '../../Components/Navbar';
 import RouteModel from '../../Components/RouteModel';
-import './index.css';
+import ETA from '../ETA';
+import Decoder from '@mapbox/polyline';
+
+// import './index.css';
 import RouteUpdateModel from '../../Components/RouteUpdateModel';
 let Ref = {};
+let colors = ["#ef5777", "#575fcf", "#e67e22", "#3498db", "#c0392b", "#f1c40f", "#1B1464", "#0652DD", "#ffc048", "#ff5e57", "#ef5777", "#575fcf", "#e67e22", "#3498db", "#c0392b", "#f1c40f", "#1B1464", "#0652DD", "#ffc048", "#ff5e57", "#ef5777", "#575fcf", "#e67e22", "#3498db", "#c0392b", "#f1c40f", "#1B1464", "#0652DD", "#ffc048", "#ff5e57", "#ef5777", "#575fcf", "#e67e22", "#3498db", "#c0392b", "#f1c40f", "#1B1464", "#0652DD", "#ffc048", "#ff5e57"]
+
 class BusRoute extends Component {
     constructor(props) {
         super(props);
@@ -41,7 +46,18 @@ class BusRoute extends Component {
             mapLoader: true,
             routeModelOpen: false,
             routeUpdateModelOpen: false,
-            editObj: {}
+            editObj: {},
+            etaArray: [{
+                bus_name: 'HU-02',
+                eta: '34 mins',
+                distance: '13.3 mi'
+            },
+            {
+                bus_name: 'HU-38',
+                eta: '26 mins',
+                distance: '10.4 mi'
+            }
+            ]
         }
         Ref = this;
     }
@@ -103,17 +119,46 @@ class BusRoute extends Component {
             console.log("after state update: ", this.state.editObj)
         });
     }
+    getDirection = (encodedPolyline) => {
+        let coordinates = [];
+        // const HU_38 = "s`swCmjixK@l@H`CLbJZxNp@l\\PpILtEV|A~EnSpCzKjB|H`ApEzB`OpDxVLp@DLMHYVq@h@sG~FyDrD{GjG_DrCuAvAmAvA{BhCaBvB]b@{@p@y@XqB^uBd@oIrBiDfAw@XmAn@cDhB{CnB_GpD{@h@y@x@mA~AeAbB[^uAtAc@j@iAv@sBbAwCtAsFbCiA\\uATq@DaBLcDPkC`@iBj@e@PaBl@}@XaAN}BVeMhAeXtB_Mf@_IR_GNy@DeE?yFGsUQwA@_Gr@kSzCIB{Cb@sL~AmJvAwDd@_DT{@HsHd@_DFqJ^kLn@gZfAmI^yDJ_BHaBNuCb@oAPyANgBJuCLuFRkDM}CQmGNmBJeDh@mDd@}Gl@_MjA@N";
+        // const HU_38 = 'ko`xCmr_xKiBMw@CmA@cAD{BFkBLoARsDh@}Eh@qCRmLhAQ@@T';
+        // var data = ...oldCoordinates;
+        // console.log('encodedPolyline: ', encodedPolyline);
+        if (encodedPolyline) {
+
+            let point = Decoder.decode(encodedPolyline);
+            // coords = point.map((point, index) => {
+            //     return {
+            //         lat: point[0],
+            //         lng: point[1]
+            //     }
+            // });
+            // console.log(point);
+            for (let i = 0; i < point.length; i++) {
+                // console.log("point[i][0], ", point[i]);
+                coordinates.push({
+                    lat: point[i][0],
+                    lng: point[i][1]
+                });
+            }
+
+            // coords.forEach((data) => {
+            //     oldCoordinates.push(data);
+            // });
+            // oldCoordinates = oldCoordinates.slice(0, 106)
+            console.log('coordinate: ', coordinates);
+            // this.setState({ coordinates: coordinates, mapLoader: false });
+            // console.log('coords: ', coords.length);
+            // this.setState({ coordinates: coordinates, mapLoader: false });
+            // localStorage.setItem('coordinates', JSON.stringify(oldCoordinates));
+            return coordinates;
+        }
+    }
+
     render() {
         return (
             <Navbar history={this.props.history}>
-                <RouteModel open={this.state.routeModelOpen} handleClose={this.routeModelHandler} />
-                <RouteUpdateModel open={this.state.routeUpdateModelOpen} handleClose={this.routeUpdateModelHandler} editObj={this.state.editObj} />
-                <div className="add-btn" >
-                    <div className="add-btn-child" onClick={this.routeModelHandler}>
-                        Add Bus Route
-                    </div>
-                </div>
-                <Model open={this.state.open} handleClose={this.closeModel} route={this.state.route} />
                 {
                     this.props.busesRoutesProgress ?
                         <div style={{ height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
@@ -126,56 +171,36 @@ class BusRoute extends Component {
                                     color: 'rgb(47, 53, 66)',
                                     textAlign: 'center',
                                     fontWeight: '600'
-                                }}>Bus Routes</h1>
+                                }}>Estimated Time</h1>
                             </section>
-                            <section style={{ display: 'flex', justifyContent: 'center', padding: "3rem 0" }}>
-                                <section className="route-container">
+                            <section style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', padding: "3rem 0" }}>
+                                <section style={{ display: 'flex', justifyContent: 'space-around' ,width: '90%'}}>
                                     {
-                                        this.props.busesRoutes.map((bus, i) => {
+                                        this.state.etaArray.map((data, i) => {
                                             return (
-                                                <div key={i} className="route-item" >
-                                                    <div className="route-item-child1" onClick={() => this.openModel(bus.bus_route[bus.bus_route.length - 1].routes[0].overview_polyline.points)}>
-                                                        <img src={require('../../assets/routeImage.jpg')} alt="routeimage" width="100%" height="100%" />
+                                                <div style={{
+                                                    backgroundColor: colors[i], color: '#fff', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', cursor: 'pointer', width: '14em',
+                                                    padding: '25px',
+                                                    borderRadius: '5px'
+                                                }}>
+                                                    <img src={require('../../assets/front-bus.png')} alt="routeimage" />
+                                                    <div style={{
+                                                        fontWeight: '700',
+                                                        paddingTop: '1rem'
+                                                    }}>
+                                                        {data.bus_name}
                                                     </div>
-                                                    <div className="route-item-child2">
-                                                        <h2 className="bus_name">
-                                                            {bus.bus_name}
-                                                        </h2>
-                                                        <div style={{ margin: "0 18px" }}>
-                                                            <hr />
-                                                        </div>
-                                                        {
-                                                            this.props.adminFlag ?
-                                                                <div className="info-div">
-                                                                    <div className="info-div-child1" onClick={() => this.routeUpdateModelHandler({ editFlag: true, bus })}>
-                                                                        <img src={require('../../assets/editicon.png')} alt="routeimage" />
-                                                                        <span>
-                                                                            Edit
-                                                                        </span>
-                                                                    </div>
-                                                                    <div className="info-div-child2" onClick={() => this.props.deleteRoute(bus._id)}>
-                                                                        <img src={require('../../assets/deleteicon.png')} alt="routeimage" />
-                                                                        <span>
-                                                                            Delete
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                                :
-                                                                <div className="info-div">
-                                                                    <div className="info-div-child1">
-                                                                        <img src={require('../../assets/mappin.png')} alt="routeimage" />
-                                                                        <span>
-                                                                            Pakistan
-                                                                        </span>
-                                                                    </div>
-                                                                    <div className="info-div-child2">
-                                                                        <img src={require('../../assets/calendar.png')} alt="routeimage" />
-                                                                        <span>
-                                                                            01-11-2018
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                        }
+                                                    <div style={{
+                                                        fontWeight: '700',
+                                                        paddingTop: '1rem'
+                                                    }}>
+                                                        ETA: {data.eta}
+                                                    </div>
+                                                    <div style={{
+                                                        fontWeight: '700',
+                                                        paddingTop: '1rem'
+                                                    }}>
+                                                        Distance: {data.distance}
                                                     </div>
                                                 </div>
                                             )

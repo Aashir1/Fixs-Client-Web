@@ -10,6 +10,13 @@ export default class AppActions {
         }
     }
 
+    static getAllBuses() {
+        return {
+            type: actionsType.GET_ALL_BUSES_PROGRESS
+        }
+    }
+
+
     static deleteInfo(id) {
         return {
             type: actionsType.DELETE_INFO_PROGRESS,

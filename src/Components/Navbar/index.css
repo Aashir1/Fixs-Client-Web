@@ -1,8 +1,12 @@
+@import url("https://fonts.googleapis.com/css?family=Nunito");
+
+
 .grid-container{
     display: grid;
     grid-template-columns: 2fr 8fr;
     grid-template-rows: auto;
     height: 100vh;
+    font-family: 'Nunito', cursive;
 }
 
 .col-1{
