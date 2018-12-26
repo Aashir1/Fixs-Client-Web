@@ -21,12 +21,18 @@ export default class HttpService {
         });
     } // get
 
-    static post(url, body, headers = { 'Content-Type': 'application/json' }) {
+    static post(url, body, headers) {
+        let headerObj = {
+            'Content-Type': 'application/json',
+        }
+        if (headers) {
+            headerObj['Authorization'] = headers;
+        }
         return Observable.ajax({
             url,
             method: 'POST',
             body,
-            headers,
+            headers: headerObj,
             async: true,
             crossDomain: true,
             responseType: 'json',

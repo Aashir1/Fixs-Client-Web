@@ -7,8 +7,12 @@ import { Provider as AlertProvider } from 'react-alert';
 import AlertTemplate from 'react-alert-template-basic';
 import BusRoute from './Container/BusRoutes';
 import BusInfo from './Container/BusInfo';
+import Main from './Components/Main';
+import Tracking from './Container/LiveTracking';
+import Report from './Container/Report';
 // import { syncHistoryWithStore } from 'react-router-redux'
 import createBrowserHistory from 'history/createBrowserHistory';
+import ETA from './Components/Estimate Time';
 const history = createBrowserHistory();
 // const history = syncHistoryWithStore(createBrowserHistory(), store)
 // localStorage.setItem('user', null)
@@ -23,11 +27,13 @@ const Routes = () => {
     return (
         <Router history={history}>
             <Switch>
-                <Route exact path="/" render={(props) => {
-                    const user = JSON.parse(localStorage.getItem('user'))
+                <Route exact path="/" component={Main} />
+                <Route path="/login" render={(props) => {
+                    const user = JSON.parse(localStorage.getItem('user'));
+                    console.log('from login route: ', user)
                     return (
-                        user ? (
-                            <Redirect to="/home" />
+                        user !== null ? (
+                            <Redirect to="/busRoute" />
                         ) : (
                                 <AlertProvider template={AlertTemplate} {...options}>
                                     <Login {...props} />
@@ -40,7 +46,7 @@ const Routes = () => {
                     const user = JSON.parse(localStorage.getItem('user'))
                     return (
                         user !== null ? (
-                            <Redirect to="/home" />
+                            <Redirect to="/busRoute" />
                         ) : (
                                 <AlertProvider template={AlertTemplate} {...options}>
                                     <Signup {...props} />
@@ -61,6 +67,18 @@ const Routes = () => {
 
                 <Route path="/driverinfo" render={(props) => (
                     <BusInfo {...props} />
+                )} />
+
+                <Route path="/tracking" render={(props) => (
+                    <Tracking {...props} />
+                )} />
+
+                <Route path="/report" render={(props) => (
+                    <Report {...props} />
+                )} />
+
+                <Route path="/time" render={(props) => (
+                    <ETA {...props} />
                 )} />
 
                 {/* <Route path="/busRoute" render={(props) => {

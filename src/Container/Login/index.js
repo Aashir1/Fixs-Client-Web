@@ -39,7 +39,7 @@ class Login extends Component {
             comRef.props.makeIserrorFalse();
         }
         if (nextporps.user) {
-            nextporps.history.replace('/home');
+            nextporps.history.replace('/busRoute');
             //     comRef.props.alert.show('Welcome', {
             //         timeout: 1000,
             //         type: 'success'
@@ -52,8 +52,8 @@ class Login extends Component {
             nextporps
         }
     }
-    showAlert = () => {
-        Alert.error(this.props.errorMessage || 'Something is wrong', {
+    showAlert = (message) => {
+        Alert.error(message || this.props.errorMessage || 'Something is wrong', {
             position: 'bottom-right',
             effect: 'bouncyflip',
             html: false,
@@ -88,21 +88,35 @@ class Login extends Component {
                     effect: 'bouncyflip',
                     html: false,
                     timeout: 2000
-                })
+                });
             }
         } else {
-            if (email.trim() !== "" && password.trim() !== "") {
-                let obj = {
-                    email: this.state.email,
-                    pass: this.state.password
+            if (this.props.adminFlag) {//if admin login
+                if (email === "admin@mail.com" && password === "admin123") {
+                    setTimeout(() => {
+                        this.props.history.replace('/busRoute');
+                    }, 2000);
+                } else {
+                    this.showAlert('invalid email or password');
+                    this.setState({ showLoader: false }, () => {
+                        console.log('showLoader: ', this.state.showLoader)
+                    })
+                    return;
                 }
-                setTimeout(() => {
-                    this.props.login(obj);
-                }, 2000)
-            }
-            else {
-                alert('Data badly formated');
-                this.setState({ showLoader: false });
+            } else {
+                if (email.trim() !== "" && password.trim() !== "") {
+                    let obj = {
+                        email: this.state.email,
+                        pass: this.state.password
+                    }
+                    setTimeout(() => {
+                        this.props.login(obj);
+                    }, 2000)
+                }
+                else {
+                    alert('Data badly formated');
+                    this.setState({ showLoader: false });
+                }
             }
         }
     }
@@ -115,6 +129,14 @@ class Login extends Component {
     makeShowForgetPasswordFalse = () => {
         this.setState({ showForgetPasswordForm: false });
     }
+    listenEvent = (e) => {
+        if (e.key === 'Enter') {
+            this.submitForm();
+        } else {
+            // alert("asdfasdf");
+            console.log("asdfasdfasd");
+        }
+    }
     render() {
         return (
             <div className="parent" style={this.state.showForgetPasswordForm ? {
@@ -125,6 +147,7 @@ class Login extends Component {
                     width: "100vw",
                     height: "100vh"
                 }}>
+                <Alert stack={{ limit: 1 }} />
                 {
                     this.state.showAlert ?
                         <Alert stack={{ limit: 1 }} />
@@ -148,12 +171,36 @@ class Login extends Component {
                     <div className="heading">
                         F<img src={require('../../assets/icon.png')} alt="AppIcon" />XS
                     </div>
-                    <div className="sub-heading">Login to continue</div>
+                    <div className="sub-heading">
+                        {
+                            this.props.adminFlag ?
+                                <span>Admin Login</span>
+                                :
+                                <span>
+                                    Login to continue
+                                </span>
+                        }
+                    </div>
                 </div>
                 {
                     this.state.showForgetPasswordForm ?
-                        <div className="form-wrapper">
-                            <div className="form-parent">
+                        <div className="form-wrapper" style={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}>
+                            <div style={{
+                                marginTop: '48px',
+                                width: '304px',
+                                height: '209px',
+                                padding: '48px',
+                                backgroundColor: '#fff',
+                                borderRadius: '3px',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'space-around',
+                                // alignItems: 'center'
+                            }}>
                                 <div className="email-wrapper">
                                     <Input placeholder="Enter email" className="email" type="email" onChange={(e) => this.updateValue(e, "email")} value={this.state.email} />
                                 </div>
@@ -161,7 +208,7 @@ class Login extends Component {
                                     <Input placeholder="Enter new password" className="password" type="password" onChange={(e) => this.updateValue(e, "password")} value={this.state.password} />
                                 </div>
                                 <div className="password-wrapper">
-                                    <Input placeholder="Re enter new password" className="password" type="password" onChange={(e) => this.updateValue(e, "newPassword")} value={this.state.newPassword} />
+                                    <Input placeholder="Re enter new password" className="password" type="password" onKeyPress={this.listenEvent} onChange={(e) => this.updateValue(e, "newPassword")} value={this.state.newPassword} />
                                 </div>
                                 <Button className="button" onClick={this.submitForm} btnText={
                                     this.state.showLoader ?
@@ -174,13 +221,28 @@ class Login extends Component {
                             </div>
                         </div>
                         :
-                        <div className="form-wrapper">
-                            <div className="form-parent">
+                        <div className="form-wrapper" style={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}>
+                            <div style={{
+                                marginTop: '48px',
+                                width: '304px',
+                                height: '209px',
+                                padding: '48px',
+                                backgroundColor: '#fff',
+                                borderRadius: '3px',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'space-around',
+                                // alignItems: 'center'
+                            }}>
                                 <div className="email-wrapper">
                                     <Input placeholder="Enter email" className="email" type="email" onChange={(e) => this.updateValue(e, "email")} value={this.state.email} />
                                 </div>
                                 <div className="password-wrapper">
-                                    <Input placeholder="Enter password" className="password" type="password" onChange={(e) => this.updateValue(e, "password")} value={this.state.password} />
+                                    <Input placeholder="Enter password" className="password" type="password" onKeyPress={this.listenEvent} onChange={(e) => this.updateValue(e, "password")} value={this.state.password} />
                                 </div>
                                 <Button className="button" onClick={this.submitForm} btnText={
                                     this.state.showLoader ?
@@ -225,7 +287,8 @@ let mapStateToProps = (state) => {
     return {
         user: state.authReducer.userInfo,
         errorMessage: state.authReducer.errorMsg,
-        isError: state.authReducer.isError
+        isError: state.authReducer.isError,
+        adminFlag: state.appReducer.adminFlag
     }
 }
 

@@ -4,7 +4,7 @@ let initalState = {
     userInfo: null,
     isProgress: false,
     errorMsg: '',
-    homeFlag: true,
+    homeFlag: false,
     forUpdate: "",
     isError: false
 };
@@ -46,13 +46,27 @@ export default function authReducer(state = initalState, action) {
             localStorage.setItem('user', null);
             let { userInfo } = state;
             userInfo = null;
-            return Object.assign({}, state, { userInfo, homeFlag: true, forUpdate: Date.now() });
+            return Object.assign({}, state, { userInfo: null, homeFlag: true, forUpdate: Date.now() });
 
         case actionsType.HOME_FLAG:
             return Object.assign({}, state, { homeFlag: false });
 
         case actionsType.MAKE_ISERROR_FALSE:
             return Object.assign({}, state, { isError: false, errorMsg: "" });
+
+
+
+
+
+        case actionsType.UPDATE_NAVBAR: {
+            let name = action.payload.name;
+
+            if (name === 'signOut') {
+                localStorage.setItem('user', null);
+                action.payload.history.replace('/');
+                return Object.assign({}, state, {userInfo: null});
+            }
+        }
 
         default:
             return state;

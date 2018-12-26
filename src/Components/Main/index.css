@@ -1,0 +1,16 @@
+@import url("https://fonts.googleapis.com/css?family=Gamja+Flower|Lato|Muli|Oswald|Oxygen|Roboto+Slab|Major+Mono+Display");
+
+.login-btn:hover{
+    background-color: #69e781 !important;
+    transition: all 0.3s !important;
+}
+/* .heading:hover{
+    transition: color 0.3s;
+    transition-timing-function: ease-in-out;
+    color: #444444 !important;
+    cursor: pointer;
+}
+.heading{
+    transition: color 0.3s;
+    transition-timing-function: ease-in-out;
+} */

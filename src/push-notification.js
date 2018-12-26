@@ -1,17 +1,17 @@
 import firebase from 'firebase';
 
-export const initializeFirebase = () => {
-  firebase.initializeApp({
-    messagingSenderId: "758209820726"
-  });
+// export const initializeFirebase = () => {
+firebase.initializeApp({
+  messagingSenderId: "758209820726"
+});
 
-  // use other service worker
-  // navigator.serviceWorker
-  //   .register('/my-sw.js')
-  //   .then((registration) => {
-  //     firebase.messaging().useServiceWorker(registration);
-  //   });
-}
+// use other service worker
+// navigator.serviceWorker
+//   .register('/my-sw.js')
+//   .then((registration) => {
+//     firebase.messaging().useServiceWorker(registration);
+//   });
+// }
 
 export const askForPermissioToReceiveNotifications = async () => {
   try {
@@ -27,3 +27,5 @@ export const askForPermissioToReceiveNotifications = async () => {
     console.error(error);
   }
 }
+
+export default firebase;

@@ -73,3 +73,25 @@
         grid-template-columns: 15em !important;
     }
 }
+
+.add-btn-child{
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    outline: none;
+    margin: 0px;
+    background: rgb(111, 255, 176);
+    border-radius: 96px;
+    width: 7rem !important;
+    cursor: pointer;
+    color: #444444;
+}
+.add-btn-child:hover{
+    background: rgba(19, 249, 123, 1) !important;
+}
+.add-btn{
+    display: flex;
+    justify-content: flex-end;
+    margin: 3rem 3rem 0rem 0rem;
+}

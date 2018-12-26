@@ -75,7 +75,7 @@ class Navbar extends Component {
                             <img src={require('../../assets/largicon.png')} className="heading-icon" />
                             <div className="logo">
                                 F<img src={require('../../assets/icon.png')} className="logo-heading-icon" />XS
-                        </div>
+                            </div>
                         </section>
 
                         <section className="nav-options">
@@ -85,7 +85,7 @@ class Navbar extends Component {
                                 </div>
                                 {
                                     navOptions['busRoute'].isFocus ?
-                                        <div className="nav-item-child2" style={{ color: '#fff' }}>
+                                        <div className="nav-item-child2" style={{ color: '#fff', fontWeight: 'bold' }}>
                                             {navOptions['busRoute'].name}
                                         </div>
                                         :
@@ -100,12 +100,58 @@ class Navbar extends Component {
                                 </div>
                                 {
                                     navOptions['driverInfo'].isFocus ?
-                                        <div className="nav-item-child2" style={{ color: '#fff' }}>
+                                        <div className="nav-item-child2" style={{ color: '#fff', fontWeight: 'bold' }}>
                                             {navOptions['driverInfo'].name}
                                         </div>
                                         :
                                         <div className="nav-item-child2">
                                             {navOptions['driverInfo'].name}
+                                        </div>
+                                }
+                            </div>
+                            <div className="nav-item" onClick={() => this.itemClick('time')} style={navOptions.time && { backgroundColor: navOptions['time'].isFocus ? 'rgba(1,1,1,0.2)' : 'transparent' }}>
+                                <div className="nav-item-child1">
+                                    <img src={require(`../../assets/${navOptions.time && navOptions['time'].isFocus ? navOptions['time'].icon : navOptions['time'].colorIcon}.png`)} alt="Icon" />
+                                </div>
+                                {
+                                    navOptions.time && navOptions['time'].isFocus ?
+                                        <div className="nav-item-child2" style={{ color: '#fff', fontWeight: 'bold' }}>
+                                            {navOptions['time'].name}
+                                        </div>
+                                        :
+                                        <div className="nav-item-child2">
+                                            {navOptions['time'].name}
+                                        </div>
+                                }
+                            </div>
+
+                            <div className="nav-item" onClick={() => this.itemClick('tracking')} style={{ backgroundColor: navOptions['tracking'].isFocus ? 'rgba(1,1,1,0.2)' : 'transparent' }}>
+                                <div className="nav-item-child1">
+                                    <img src={require(`../../assets/${navOptions['tracking'].isFocus ? navOptions['tracking'].icon : navOptions['tracking'].colorIcon}.png`)} alt="Icon" />
+                                </div>
+                                {
+                                    navOptions['tracking'].isFocus ?
+                                        <div className="nav-item-child2" style={{ color: '#fff', fontWeight: 'bold' }}>
+                                            {navOptions['tracking'].name}
+                                        </div>
+                                        :
+                                        <div className="nav-item-child2">
+                                            {navOptions['tracking'].name}
+                                        </div>
+                                }
+                            </div>
+                            <div className="nav-item" onClick={() => this.itemClick('report')} style={{ backgroundColor: navOptions['report'].isFocus ? 'rgba(1,1,1,0.2)' : 'transparent' }}>
+                                <div className="nav-item-child1">
+                                    <img src={require(`../../assets/${navOptions['report'].isFocus ? navOptions['report'].icon : navOptions['report'].colorIcon}.png`)} alt="Icon" />
+                                </div>
+                                {
+                                    navOptions['report'].isFocus ?
+                                        <div className="nav-item-child2" style={{ color: '#fff', fontWeight: 'bold' }}>
+                                            {navOptions['report'].name}
+                                        </div>
+                                        :
+                                        <div className="nav-item-child2">
+                                            {navOptions['report'].name}
                                         </div>
                                 }
                             </div>
@@ -115,27 +161,12 @@ class Navbar extends Component {
                                 </div>
                                 {
                                     navOptions['student'].isFocus ?
-                                        <div className="nav-item-child2" style={{ color: '#fff' }}>
+                                        <div className="nav-item-child2" style={{ color: '#fff', fontWeight: 'bold' }}>
                                             {navOptions['student'].name}
                                         </div>
                                         :
                                         <div className="nav-item-child2">
                                             {navOptions['student'].name}
-                                        </div>
-                                }
-                            </div>
-                            <div className="nav-item" onClick={() => this.itemClick('tracking')} style={{ backgroundColor: navOptions['tracking'].isFocus ? 'rgba(1,1,1,0.2)' : 'transparent' }}>
-                                <div className="nav-item-child1">
-                                    <img src={require(`../../assets/${navOptions['tracking'].isFocus ? navOptions['tracking'].icon : navOptions['tracking'].colorIcon}.png`)} alt="Icon" />
-                                </div>
-                                {
-                                    navOptions['tracking'].isFocus ?
-                                        <div className="nav-item-child2" style={{ color: '#fff' }}>
-                                            {navOptions['tracking'].name}
-                                        </div>
-                                        :
-                                        <div className="nav-item-child2">
-                                            {navOptions['tracking'].name}
                                         </div>
                                 }
                             </div>
@@ -145,7 +176,7 @@ class Navbar extends Component {
                                 </div>
                                 {
                                     navOptions['signOut'].isFocus ?
-                                        <div className="nav-item-child2" style={{ color: '#fff' }}>
+                                        <div className="nav-item-child2" style={{ color: '#fff', fontWeight: 'bold' }}>
                                             {navOptions['signOut'].name}
                                         </div>
                                         :
