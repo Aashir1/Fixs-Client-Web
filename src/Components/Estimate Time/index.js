@@ -1,14 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import AuthAction from '../../store/Actions/AuthActions';
-import MyMapComponent from '../../Components/Map';
-import Button from '../../Components/Button';
 import Loader from 'react-loader-spinner';
-import Model from '../../Components/Model';
 import BusRouteActions from '../../store/Actions/BusRoutesActions';
 import Navbar from '../../Components/Navbar';
-import RouteModel from '../../Components/RouteModel';
-import ETA from '../ETA';
 import Decoder from '@mapbox/polyline';
 
 // import './index.css';

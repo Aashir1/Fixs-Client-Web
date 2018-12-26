@@ -9,7 +9,7 @@ import Decoder from '@mapbox/polyline';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import Loader from 'react-loader-spinner';
-import MyMapComponent from '../../Components/Map';
+import MyMapComponent from '../Maps/Map';
 import { connect } from 'react-redux';
 import ETA from '../../Components/ETA';
 

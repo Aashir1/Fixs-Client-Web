@@ -14,7 +14,7 @@ let initalState = {
     distance: 0,
     etaProgress: false,
     etaErrorMessage: "",
-    adminFlag: false,
+    adminFlag: true,
     editObj: {
         editFlag: false,
         bus: {}

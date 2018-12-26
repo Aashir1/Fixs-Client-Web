@@ -5,9 +5,10 @@ import Routes from './Routes';
 import { store } from '../src/store/index';
 import { Provider } from 'react-redux';
 import Navbar from './Components/Navbar';
-import LocalServiceWorkerRegister from './local-sw';
-import * as serviceWorker from './serviceWorker';
-
+// import * as serviceWorker from './serviceWorker';
+import registerServiceWorker from './registerServiceWorker';
+import { initializeFirebase } from './push-notification';
+import { askForPermissioToReceiveNotifications } from './push-notification';
 
 
 ReactDOM.render(
@@ -21,4 +22,6 @@ ReactDOM.render(
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: http://bit.ly/CRA-PWA
 // LocalServiceWorkerRegister();
-serviceWorker.register();
+registerServiceWorker();
+// initializeFirebase();
+// askForPermissioToReceiveNotifications();

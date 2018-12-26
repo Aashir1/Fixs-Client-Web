@@ -3,6 +3,13 @@ import actionsType from '../actionTypes';
 
 export default class AppActions {
 
+    static subscribeToTopic(obj) {
+        return {
+            type: actionsType.SUBSCRIBE_TO_TOPIC,
+            payload: obj.token
+        }
+    }
+
     static updateNavbar(obj) {
         return {
             type: actionsType.UPDATE_NAVBAR,

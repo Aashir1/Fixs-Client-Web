@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import AuthAction from '../../store/Actions/AuthActions';
-import MyMapComponent from '../../Components/Map';
+import MyMapComponent from '../../Components/Maps/Map';
 import Button from '../../Components/Button';
 import Loader from 'react-loader-spinner';
 import Navbar from '../../Components/Navbar';
