@@ -14,6 +14,7 @@ import BusInfoModel from '../../Components/BusInfoModel';
 import BusInfoUpdateModel from '../../Components/BusInfoUpdateModel';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
+import SearchBox from '../../Components/SearchBox';
 import './businfo.css';
 let Ref = {};
 let colors = ["#ef5777", "#575fcf", "#e67e22", "#3498db", "#c0392b", "#f1c40f", "#1B1464", "#0652DD", "#ffc048", "#ff5e57", "#ef5777", "#575fcf", "#e67e22", "#3498db", "#c0392b", "#f1c40f", "#1B1464", "#0652DD", "#ffc048", "#ff5e57", "#ef5777", "#575fcf", "#e67e22", "#3498db", "#c0392b", "#f1c40f", "#1B1464", "#0652DD", "#ffc048", "#ff5e57", "#ef5777", "#575fcf", "#e67e22", "#3498db", "#c0392b", "#f1c40f", "#1B1464", "#0652DD", "#ffc048", "#ff5e57"]
@@ -100,7 +101,7 @@ class Home extends Component {
     }
     openUpdateModel = (obj) => {
         this.props.infoUpdateObj(obj);
-        this.setState({ openUpdateModel: true });
+        this.setState({ openUpdateModel: true, infoObj: obj });
     }
 
 
@@ -182,50 +183,58 @@ class Home extends Component {
         }
         return (
             <Navbar history={this.props.history}>
-                <BusInfoModel open={this.state.openModel} handleClose={this.handleClose} />
-                <BusInfoUpdateModel open={this.state.openUpdateModel} handleClose={this.handleUpdateClose} />
-                <div className="add-btn" >
-                    <div className="add-btn-child" onClick={this.handleClose}>
-                        Add Bus Info
-                    </div>
-                </div>
-                <h1 style={{
-                    color: 'rgb(47, 53, 66)',
-                    textAlign: 'center',
-                    fontWeight: '600'
-                }}>Driver Info</h1>
-                {/* <Button btnText="Signout" onClick={this.signOut} /> */}
                 {
-                    this.props.busesInfoProgress ? (
-                        <div style={{ height: '65vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                            <Loader type="Oval" color="#000" height={50} width={50} />
-                        </div>
-                    )
+                    this.state.openModel ?
+                        <BusInfoModel open={this.state.openModel} handleClose={this.handleClose} />
                         :
-                        <InfiniteScroll
-                            pageStart={this.props.currentPage}
-                            loadMore={() => this.props.getBusInfo(parseInt(this.props.currentPage) + 1)}
-                            hasMore={this.props.hasMore}
-                            loader={<Loader type="Oval" color="#000" height={50} width={50} />}
-                        >
-                            <div style={{ display: "flex", justifyContent: "center", }}>
-                                <section className="businfo-main">
-                                    {
-                                        items
-                                    }
-                                </section>
+                        this.state.openUpdateModel ?
+                            <BusInfoUpdateModel open={this.state.openUpdateModel} infoObj={this.state.infoObj} handleClose={this.handleUpdateClose} />
+                            :
+                            <div>
+                                <div className="add-btn" >
+                                    <div className="add-btn-child" onClick={this.handleClose}>
+                                        Add Bus Info
+                                </div>
+                                </div>
+                                <h1 style={{
+                                    color: 'rgb(47, 53, 66)',
+                                    textAlign: 'center',
+                                    fontWeight: '600'
+                                }}>Driver Info</h1>
+                                {/* <Button btnText="Signout" onClick={this.signOut} /> */}
+                                {
+                                    this.props.busesInfoProgress ? (
+                                        <div style={{ height: '65vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                            <Loader type="Oval" color="#000" height={50} width={50} />
+                                        </div>
+                                    )
+                                        :
+                                        <InfiniteScroll
+                                            pageStart={this.props.currentPage}
+                                            loadMore={() => this.props.getBusInfo(parseInt(this.props.currentPage) + 1)}
+                                            hasMore={this.props.hasMore}
+                                            loader={<Loader type="Oval" color="#000" height={50} width={50} />}
+                                        >
+                                            <div style={{ display: "flex", justifyContent: "center", }}>
+                                                <section className="businfo-main">
+                                                    {
+                                                        items
+                                                    }
+                                                </section>
+                                            </div>
+                                        </InfiniteScroll>
+
+
+                                    // <MyMapComponent
+                                    //     lat={this.state.lat}
+                                    //     lng={this.state.lng}
+                                    //     accuracy={this.state.accuracy}
+                                    //     isMarkerShown={true}
+                                    //     center={{ lag: this.state.lat, lng: this.state.lng }}
+                                    // // onCenterChanged={}
+                                    // />
+                                }
                             </div>
-                        </InfiniteScroll>
-
-
-                    // <MyMapComponent
-                    //     lat={this.state.lat}
-                    //     lng={this.state.lng}
-                    //     accuracy={this.state.accuracy}
-                    //     isMarkerShown={true}
-                    //     center={{ lag: this.state.lat, lng: this.state.lng }}
-                    // // onCenterChanged={}
-                    // />
                 }
             </Navbar>
         )

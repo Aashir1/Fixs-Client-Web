@@ -137,6 +137,7 @@ class ResponsiveDialog extends React.Component {
                                     lat={0}
                                     lng={0}
                                     accuracy={0}
+                                    draggable={true}
                                     mapClicked={(event) => {
                                         console.log('lat: ', event.latLng.lat());
                                         console.log('lng: ', event.latLng.lng());

@@ -1,7 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import AppActions from '../../store/Actions/AppActions';
+import { Box, Grommet, Clock } from "grommet";
+import { grommet } from "grommet/themes";
 import './index.css';
+const DigitalClock = () => (
+    <Grommet theme={grommet} style={{ background: 'transparent', padding: '5rem 2rem 0rem 2rem' }}>
+        {/* <Box align="center" justify="start" pad="large">
+        </Box> */}
+        <Box round='large' background='#7bf4ed' align="center" pad='small' time="T10:37:45"  >
+            <Clock type="digital" />
+            {/* <Clock type='digital' size='large' run='backward' time='PT18H10M48S' /> */}
+        </Box>
+    </Grommet>
+);
 class Navbar extends Component {
     constructor(props) {
         super(props);
@@ -186,9 +198,12 @@ class Navbar extends Component {
                                 }
                             </div>
                         </section>
+                        <section>
+                            <DigitalClock />
+                        </section>
                     </div>
                 </div>
-                <div className="col-2" style={{ backgroundColor: '#f1f2f6', height: 'auto' }}>
+                <div className="col-2" style={{ backgroundColor: this.props.backgroundColor || '#f1f2f6', height: 'auto' }}>
                     {this.props.children}
                 </div>
             </div>

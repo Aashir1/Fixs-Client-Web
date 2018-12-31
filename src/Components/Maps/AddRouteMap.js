@@ -64,6 +64,7 @@ const MyMapComponent = compose(
             defaultZoom={15}
             defaultCenter={props.defaultCenter}
             accuracy={props.accuracy}
+            zoom={props.zoom}
             onClick={(event) => {
                 console.log('event: ', event)
                 // var lat = event.latLng.lat(), lng = event.latLng.lng()
@@ -83,7 +84,7 @@ const MyMapComponent = compose(
                     return (
                         <Marker
                             key={i}
-                            draggable={true}
+                            draggable={props.draggable}
                             onDragEnd={(e) => {
                                 props.updateMarkerLocation(e, i)
                                 console.log('marker draged: ', e);

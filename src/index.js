@@ -9,11 +9,14 @@ import Navbar from './Components/Navbar';
 import registerServiceWorker from './registerServiceWorker';
 import { initializeFirebase } from './push-notification';
 import { askForPermissioToReceiveNotifications } from './push-notification';
+import { Grommet } from 'grommet';
 
 
 ReactDOM.render(
     <Provider store={store}>
-        <Routes />
+        <Grommet plain>
+            <Routes />
+        </Grommet>
     </Provider>
     , document.getElementById('root'));
 

@@ -13,6 +13,9 @@ import Report from './Container/Report';
 // import { syncHistoryWithStore } from 'react-router-redux'
 import createBrowserHistory from 'history/createBrowserHistory';
 import ETA from './Components/Estimate Time';
+import Weekly from './Container/Report/Weekly';
+import Monthly from './Container/Report/Monthly';
+import Yearly from './Container/Report/Yearly';
 const history = createBrowserHistory();
 // const history = syncHistoryWithStore(createBrowserHistory(), store)
 // localStorage.setItem('user', null)
@@ -73,14 +76,26 @@ const Routes = () => {
                     <Tracking {...props} />
                 )} />
 
-                <Route path="/report" render={(props) => (
-                    <Report {...props} />
-                )} />
 
                 <Route path="/time" render={(props) => (
                     <ETA {...props} />
                 )} />
 
+                <Route path="/report/weekly" render={(props) => {
+                    return <Weekly {...props} />
+                }} />
+
+                <Route path="/report/monthly" render={(props) => {
+                    return <Monthly {...props} />
+                }} />
+
+                <Route path="/report/yearly" render={(props) => {
+                    return <Yearly {...props} />
+                }} />
+
+                <Route path="/report" render={(props) => (
+                    <Report {...props} />
+                )} />
                 {/* <Route path="/busRoute" render={(props) => {
                     <BusRoute {...props}/>
                 }} />

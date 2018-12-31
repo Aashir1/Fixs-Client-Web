@@ -9,6 +9,7 @@ import './index.css';
 import Input from '../Input';
 import { connect } from 'react-redux';
 import AppActions from '../../store/Actions/AppActions';
+import SearchBox from '../SearchBox';
 
 
 class ResponsiveDialog extends React.Component {
@@ -30,16 +31,6 @@ class ResponsiveDialog extends React.Component {
     componentDidMount() {
         console.log('form componentDidMount');
     }
-
-    onEntered = () => {
-        // this.getDirection(this.props.route);
-        console.log("onEntered called now");
-    }
-
-    onExited = () => {
-        // this.setState({ mapLoader: true });
-        console.log("onexited called")
-    }
     updateValue = (e, name) => {
         let obj = {};
         obj[name] = e.target.value;
@@ -49,7 +40,8 @@ class ResponsiveDialog extends React.Component {
 
     addBusInfo = () => {
         this.setState({ showLoader: true });
-        let { busName, stopInfo, driverName, driverNum } = this.state;
+        let { busName, driverName, stopInfo, driverNum } = this.state;
+        // let stopInfo = this.state.placesArray.map(e => e.long_name).join(', ');
         if (busName.trim() !== "" && stopInfo.trim() !== "" && driverName.trim() !== "" && driverNum.trim() !== "") {
             this.props.addBusInfo({
                 busName,
@@ -69,25 +61,21 @@ class ResponsiveDialog extends React.Component {
         // console.log('all props: ', this.getDirection(this.props.route));
         return (
             <div>
-                <Dialog
-                    disableBackdropClick={true}
-                    onEntered={this.onEntered}
-                    onExited={this.onExited}
-                    // disableRestoreFocus={true}
-                    maxWidth="lg"
-                    fullWidth={true}
-                    fullScreen={fullScreen}
-                    open={this.props.open}
-                    onClose={this.props.handleClose}
-                    aria-labelledby="responsive-dialog-title"
-                >
+                <div>
                     {/* <DialogTitle style={{ textAlign: "center" }} id="responsive-dialog-title">{"Map"}</DialogTitle> */}
                     <div className="model-title">
                         <div style={{ color: '#E3E9ED' }}>Add Bus Info</div>
                         <img className="cross-image" onClick={this.props.handleClose} src={require('../../assets/multiply.png')} />
                     </div>
-                    <DialogContent style={{ display: 'flex', justifyContent: 'center' }}>
-                        <div className="form-parent">
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <div className="form-parent" style={{
+                            marginTop: '100px',
+                            width: '304px',
+                            height: '21rem !important',
+                            padding: '0px !important',
+                            backgroundColor: 'transparent',
+                            borderRadius: '3px'
+                        }}>
                             <div className="email-wrapper">
                                 <Input placeholder="Bus Name" className="email" type="text" onChange={(e) => this.updateValue(e, "busName")} value={this.state.busName} />
                             </div>
@@ -98,6 +86,9 @@ class ResponsiveDialog extends React.Component {
                                 <Input placeholder="Driver Phone" className="password" type="text" onChange={(e) => this.updateValue(e, "driverNum")} value={this.state.driverNum} />
                             </div>
                             <div className="password-wrapper">
+                                {/* <SearchBox getPlaces={(e) => {
+                                    this.setState({ placesArray: e[0].address_components })
+                                }} /> */}
                                 <Input placeholder="Stop Info" className="password" type="text" onChange={(e) => this.updateValue(e, "stopInfo")} value={this.state.stopInfo} />
                             </div>
                             <button className="add-route" onClick={this.addBusInfo}
@@ -112,21 +103,17 @@ class ResponsiveDialog extends React.Component {
                                 }
                             </button>
                         </div>
-                    </DialogContent>
-                    <DialogActions>
+                    </div>
+                    {/* <DialogActions>
                         <Button style={{ borderRadius: '0', backgroundColor: '#E3E9ED', color: "#0B2239" }} onClick={this.props.handleClose} color="#000">
                             Close
                         </Button>
-                    </DialogActions>
-                </Dialog>
+                    </DialogActions> */}
+                </div>
             </div>
         );
     }
 }
-
-ResponsiveDialog.propTypes = {
-    fullScreen: PropTypes.bool.isRequired,
-};
 
 let mapStateToProps = (state) => {
     console.log('from home reducers state: ', state)

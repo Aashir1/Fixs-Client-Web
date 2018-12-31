@@ -156,7 +156,7 @@ export default function appReducer(state = initalState, action) {
                 }
             }
             // this.setState({ navOptions });
-            action.payload.history.push(`${name}`);
+            action.payload.history.push(`/${name}`);
             return Object.assign({}, state, { navOptions: navOptions });
         }
 
@@ -188,7 +188,7 @@ export default function appReducer(state = initalState, action) {
         case actionsType.ADD_BUSINFO_PROGRESS:
             return Object.assign({}, state, { busesInfoProgress: true });
         case actionsType.ADD_BUSINFO_SUCCEED:
-            return Object.assign({}, state, { busesRoutes: [...state.busesRoutes, action.payload.data], busesRoutesProgress: false });
+            return Object.assign({}, state, { busesRoutes: [...state.busesRoutes, action.payload.data], busesInfoProgress: false });
         case actionsType.ADD_BUSINFO_FAIL:
             return Object.assign({}, state, { busesRoutesProgress: false, busesRoutesErrorMessage: action.payload });
 
