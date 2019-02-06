@@ -101,6 +101,7 @@ class ResponsiveDialog extends React.Component {
     }
     render() {
         console.log("comming props************: ", this.props.editObj)
+        console.log("default center: ", this.state.defaultCenter);
         const { fullScreen } = this.props;
         // console.log('all props: ', this.getDirection(this.props.route));
         return (
@@ -144,6 +145,8 @@ class ResponsiveDialog extends React.Component {
                                         if (this.state.wayPoint.length <= 9) {
                                             this.setState({
                                                 wayPoint: [...this.state.wayPoint, { lat: event.latLng.lat(), lng: event.latLng.lng(), showInfoBox: false }]
+                                            }, ()=>{
+                                                console.log('updated waypoint array*************************************************: ', this.state.wayPoint);
                                             })
                                         } else {
                                             alert('you have required to left only 10 way points');
@@ -179,6 +182,7 @@ class ResponsiveDialog extends React.Component {
                                     defaultCenter={this.state.defaultCenter}
                                     isMarkerShown={true}
                                     center={{ lag: 0, lng: 0 }}
+                                    zoom={15}
                                 />
                             </div>
                         </div>

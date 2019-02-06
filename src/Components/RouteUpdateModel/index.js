@@ -82,6 +82,7 @@ class ResponsiveDialog extends React.Component {
         this.setState({ defaultCenter: { lat: position.coords.latitude, lng: position.coords.longitude } });
     }
     render() {
+        console.log("this.state.wayPoint[0]: ", { lat: parseFloat(this.state.wayPoint[0].lat), lng: parseFloat(this.state.wayPoint[0].lng) });
         const { fullScreen } = this.props;
         return (
             <div>
@@ -115,6 +116,7 @@ class ResponsiveDialog extends React.Component {
                                     lat={0}
                                     lng={0}
                                     accuracy={0}
+                                    draggable={true}
                                     mapClicked={(event) => {
                                         console.log('lat: ', event.latLng.lat());
                                         console.log('lng: ', event.latLng.lng());
@@ -154,9 +156,10 @@ class ResponsiveDialog extends React.Component {
                                         this.setState({ wayPoint: wayPoint })
                                     }}
                                     wayPoint={this.state.wayPoint}
-                                    defaultCenter={this.state.wayPoint[0]}
+                                    defaultCenter={{ lat: parseFloat(this.state.wayPoint[0].lat), lng: parseFloat(this.state.wayPoint[0].lng) }}
                                     isMarkerShown={true}
-                                    center={{ lag: 0, lng: 0 }}
+                                    center={{ lat: parseFloat(this.state.wayPoint[0].lat), lng: parseFloat(this.state.wayPoint[0].lng) }}
+                                    zoom={15}
                                 />
                             </div>
                             <div style={{

@@ -57,7 +57,7 @@ const MyMapComponent = compose(
     withScriptjs,
     withGoogleMap
 )((props) => {
-
+    console.log('PROPS: ', props);
     // this.props = Object.assign({}, { ...props }, { ...this.props })
     return (
         < GoogleMap
@@ -65,6 +65,7 @@ const MyMapComponent = compose(
             defaultCenter={props.defaultCenter}
             accuracy={props.accuracy}
             zoom={props.zoom}
+            // center={props.center}
             onClick={(event) => {
                 console.log('event: ', event)
                 // var lat = event.latLng.lat(), lng = event.latLng.lng()
@@ -80,7 +81,7 @@ const MyMapComponent = compose(
         >
             {
                 props.wayPoint.map((data, i) => {
-                    // console.log('data: ', data)
+                    console.log('from map data: ', data)
                     return (
                         <Marker
                             key={i}
@@ -89,54 +90,72 @@ const MyMapComponent = compose(
                                 props.updateMarkerLocation(e, i)
                                 console.log('marker draged: ', e);
                             }}
-                            position={data}
+                            position={Array.isArray(data) ? data[0] : data}
                             onClick={(e) => {
                                 console.log("you click me: ", e);
                                 props.showThisInfoBox(e, i);
                             }}>
                             {
-                                data.showInfoBox &&
+                                (data.showInfoBox || props.showExtraInfo) &&
                                 <InfoWindow position={data}>
                                     <div>
-                                        <h6>Want to delete Marker</h6>
-                                        <button onClick={() => {
-                                            props.deleteMarker(i)
-                                        }} style={{
-                                            maxWidth: '100%',
-                                            textAlign: 'center',
-                                            verticalAlign: 'middle',
-                                            whiteSpace: 'nowrap',
-                                            /* width: 100%; */
-                                            color: '#0B2239',
-                                            background: '#49d295',
-                                            borderRadius: '3px',
-                                            borderWidth: '0px',
-                                            height: '39px',
-                                            /* line-height: 39px !important; */
-                                            width: '3rem',
-                                            marginLeft: '0.5rem'
+                                        {
+                                            props.showExtraInfo ?
+                                                <div>
+                                                    Stop No {i + 1}
+                                                </div>
+                                                :
+                                                <div></div>
+                                        }
+                                        <div>
+                                            {
+                                                props.showExtraInfo ?
+                                                    <div></div>
+                                                    :
+                                                    <div>
 
-                                        }}>
-                                            Yes
-                                        </button>
-                                        <button style={{
-                                            maxWidth: '100%',
-                                            textAlign: 'center',
-                                            verticalAlign: 'middle',
-                                            whiteSpace: 'nowrap',
-                                            /* width: 100%; */
-                                            color: '#0B2239',
-                                            background: '#49d295',
-                                            borderRadius: '3px',
-                                            borderWidth: '0px',
-                                            height: '39px',
-                                            /* line-height: 39px !important; */
-                                            width: '3rem',
-                                            marginLeft: '0.5rem'
+                                                        <h6>Want to delete Marker</h6>
+                                                        <button onClick={() => {
+                                                            props.deleteMarker(i)
+                                                        }} style={{
+                                                            maxWidth: '100%',
+                                                            textAlign: 'center',
+                                                            verticalAlign: 'middle',
+                                                            whiteSpace: 'nowrap',
+                                                            /* width: 100%; */
+                                                            color: '#0B2239',
+                                                            background: '#49d295',
+                                                            borderRadius: '3px',
+                                                            borderWidth: '0px',
+                                                            height: '39px',
+                                                            /* line-height: 39px !important; */
+                                                            width: '3rem',
+                                                            marginLeft: '0.5rem'
 
-                                        }}>
-                                            No
-                                </button>
+                                                        }}>
+                                                            Yes
+                                                    </button>
+                                                        <button style={{
+                                                            maxWidth: '100%',
+                                                            textAlign: 'center',
+                                                            verticalAlign: 'middle',
+                                                            whiteSpace: 'nowrap',
+                                                            /* width: 100%; */
+                                                            color: '#0B2239',
+                                                            background: '#49d295',
+                                                            borderRadius: '3px',
+                                                            borderWidth: '0px',
+                                                            height: '39px',
+                                                            /* line-height: 39px !important; */
+                                                            width: '3rem',
+                                                            marginLeft: '0.5rem'
+
+                                                        }}>
+                                                            No
+                                                    </button>
+                                                    </div>
+                                            }
+                                        </div>
                                     </div>
                                 </InfoWindow>
                             }

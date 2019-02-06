@@ -2,8 +2,8 @@ import actionsType from '../actionTypes';
 import HttpService from '../service/httpService';
 import { Observable } from 'rxjs';
 let header = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGVzdDEyMzQiLCJlbWFpbCI6InRlc3QxMjM0QG1haWwuY29tIiwiaWF0IjoxNTQzMDgyOTYxfQ.R9Y0r_Zx_gY4E2nolwQzwR-AqokFZwxAHduy9ordxfg';
-// const baseURL = 'https://warm-thicket-69046.herokuapp.com';
-const baseURL = 'http://localhost:8080';
+const baseURL = 'https://warm-thicket-69046.herokuapp.com';
+// const baseURL = 'http://localhost:8080';
 
 export default class BusRouteEpic {
 
@@ -41,6 +41,7 @@ export default class BusRouteEpic {
                     return response;
                 })
                 .switchMap((data) => {
+                    console.log("response comming from google API: ", data)
                     let obj = {
                         busName: payload.busName,
                         wayPoint: wayPoint,

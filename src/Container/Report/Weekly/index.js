@@ -23,12 +23,12 @@ class Tracking extends Component {
             i: 0,
             value: '',
             wayPoint: [],
-            zoom: 10,
+            zoom: 15,
             busesData: {
                 'HU-01': {
                     arrivalTime: 8.00,
                     departureTime: 4.10,
-                    travelHistory: [{ lat: 24.900260, lng: 67.043444 }, { lat: 24.908291, lng: 67.049235 }, { lat: 24.910450, lng: 67.049723 }, { lat: 24.926293, lng: 67.046785 }, { lat: 24.961482, lng: 67.063946 }, { lat: 25.004700, lng: 67.047965 }, { lat: 25.083340, lng: 25.083340 }],
+                    travelHistory: [{ lat: 24.900260, lng: 67.043444 }, { lat: 24.908291, lng: 67.049235 }, { lat: 24.910450, lng: 67.049723 }, { lat: 24.926293, lng: 67.046785 }, { lat: 24.961482, lng: 67.063946 }, { lat: 25.004700, lng: 67.047965 }],
                 },
                 'HU-02': {
                     arrivalTime: 8.10,
@@ -95,6 +95,7 @@ class Tracking extends Component {
     }
 
     render() {
+        console.log('this.state.wayPoint[Math.ceil(this.state.wayPoint.length / 2)]: ', this.state.wayPoint[Math.ceil(this.state.wayPoint.length / 2)]);
         console.log('his.state.wayPoint[Math.ceil(this.state.wayPoint / 2)]: ', this.state.wayPoint[Math.ceil(this.state.wayPoint.length / 2)], " this.state.waypoint::: ", this.state.wayPoint);
         let allBuses = Object.keys(this.state.busesData);
         let { busesData } = this.state;
@@ -153,6 +154,7 @@ class Tracking extends Component {
                     <div>
                         <div>
                             <MyMapComponent
+                                showExtraInfo={true}
                                 lat={0}
                                 lng={0}
                                 accuracy={0}
